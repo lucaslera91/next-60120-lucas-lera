@@ -5,7 +5,7 @@ export const headerData = [
   },
   {
     name: "Productos",
-    tabUrl: "/Products",
+    tabUrl: "/Producto",
   },
   {
     name: "Carrito",

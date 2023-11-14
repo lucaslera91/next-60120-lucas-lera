@@ -1,14 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const AdminLayout = ({children}) => {
-  return (
-    <div>
-        {children}
-        <div>
-            div special for admin
-        </div>
-    </div>
-  )
-}
+const AdminLayout = ({ children }) => {
+  return <div>{children}</div>;
+};
 
-export default AdminLayout
+export default AdminLayout;
