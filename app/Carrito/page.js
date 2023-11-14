@@ -1,8 +1,9 @@
 import React from 'react'
+import CartList from '../Components/CartList/CartList';
 
 const Carrito = () => {
   return (
-    <div>Carrito</div>
+    <CartList />
   )
 }
 

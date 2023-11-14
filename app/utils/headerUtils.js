@@ -3,10 +3,10 @@ export const headerData = [
     name: "Home",
     tabUrl: "/",
   },
-  {
-    name: "Productos",
-    tabUrl: "/Producto",
-  },
+  // {
+  //   name: "Productos",
+  //   tabUrl: "/Producto",
+  // },
   {
     name: "Carrito",
     tabUrl: "/Carrito",
