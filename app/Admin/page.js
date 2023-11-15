@@ -1,11 +1,15 @@
 import React from "react";
 import AdminList from "../Components/AdminList/AdminList";
-import ProductList from "../Components/ProductList/ProductList";
-import Card from "../Components/ui/Card/Card";
+
 import Footer from "../Components/ui/Footer/Footer";
 import Header from "../Components/ui/Header/Header";
-import { footerList } from "../utils/footerList";
+import { footerList } from "../utils/footerUtlis";
 import { headerData } from "../utils/headerUtils";
+
+export const metadata = {
+  title: 'LibraryApp - Admin',
+  description: 'App de libreria'
+}
 
 const Admin = () => {
   return (

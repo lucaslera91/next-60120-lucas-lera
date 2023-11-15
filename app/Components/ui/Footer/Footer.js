@@ -1,4 +1,4 @@
-import { footerList } from '@/app/utils/footerList'
+
 import React from 'react'
 import MenuList from '../MenuList/MenuList'
 

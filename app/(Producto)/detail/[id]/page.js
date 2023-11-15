@@ -1,11 +1,18 @@
+// import { generateMetadata } from "@/app/utils/productUtils";
+import { findItem } from "@/app/utils/utils";
 import productList from "@/data/productList";
 import Image from "next/image";
 import React from "react";
 
+export const generateMetadata = async ({ params }) => {
+  const data = findItem(productList, params?.id);
+  return {
+    title: "LibraryApp - " + data[0]?.title,
+  };
+};
 const Detail = ({ params }) => {
   const { id } = params;
   const item = productList.filter((item) => item?.slug === id)[0];
-  console.log("item", item);
   const url =
     "https://d1amk1w0mr5k0.cloudfront.net/blog/wp-content/uploads/2018/08/GettyImages-802465010-1.jpg";
   return (

@@ -8,7 +8,7 @@ export const productList = [
     inStock: 50,
     price: 2999,
     slug: "classic-school-backpack-laptop-compartment",
-    image: "classic-school-backpack.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj4iTFq7tJK0p2RvE7Qoy0PeOOFMPwQYkVeg&usqp=CAU",
     type: "school-products",
   },
   {
