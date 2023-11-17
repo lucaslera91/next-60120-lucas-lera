@@ -1,4 +1,4 @@
-import Header from "@/app/Components/ui/Header/Header";
+import Header from "@/Components/ui/Header/Header";
 import { headerData } from "@/app/utils/headerUtils";
 import React from "react";
 

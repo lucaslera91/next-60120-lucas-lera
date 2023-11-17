@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "../Components/ui/Footer/Footer";
-import Header from "../Components/ui/Header/Header";
+import Footer from "../../Components/ui/Footer/Footer";
+import Header from "../../Components/ui/Header/Header";
 import { footerList } from "../utils/footerUtlis";
 import { headerData } from "../utils/headerUtils";
 

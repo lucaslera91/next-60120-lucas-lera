@@ -1,7 +1,7 @@
 
-import ProductList from "./Components/ProductList/ProductList";
-import Footer from "./Components/ui/Footer/Footer";
-import Header from "./Components/ui/Header/Header";
+import ProductList from "../Components/ProductList/ProductList";
+import Footer from "../Components/ui/Footer/Footer";
+import Header from "../Components/ui/Header/Header";
 import { footerList } from "./utils/footerUtlis";
 import { headerData } from "./utils/headerUtils";
 
