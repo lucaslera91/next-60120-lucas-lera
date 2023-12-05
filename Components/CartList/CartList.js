@@ -18,7 +18,7 @@ const CartList = async () => {
 
   return (
     <div className="">
-      {/* {!!cartList && <div>Loading...</div>} */}
+      {!!cartList && <div>Loading...</div>}
       {!!cartList && cartList.map((element) => <CartItem item={element} />)}
     </div>
   );

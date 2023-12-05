@@ -14,8 +14,15 @@ const CartItem = ({ children, item }) => {
           <p className="text-gray-700 text-base">{description}</p>
         </div>
         <div className="w-1/10 flex justify-center items-center">
-          <button className="text-blue-200 p-2 m-2 bg-blue-600 rounded">Edit</button>
-          <button className="text-red-200 p-2 m-2 bg-red-600 rounded">Remove</button>
+          <span className="text-blue-500">-</span>
+          <p className="text-blue-200 p-2 m-2 bg-blue-600 rounded">
+            {item.stock}
+          </p>
+          <span className="text-blue-500">+</span>
+
+          <button className="text-red-200 p-2 m-2 bg-red-600 rounded">
+            Eliminar
+          </button>
         </div>
       </div>
       {children}
