@@ -1,12 +1,18 @@
+"use client";
 import productList from "@/data/productList";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AdminItem from "../ui/AdminItem/AdminItem";
+import { useProductListAdminContext } from "@/Contexts/ProductListAdminProvider";
 
-const AdminList = () => {
+const AdminList = async () => {
+  const { getList, deleteProduct} = useProductListAdminContext();
+
+  const products = await getList();
+
   return (
     <div>
-      {productList.map((element) => (
-        <AdminItem item={element} />
+      {products.length > 0 && products.map((element) => (
+        <AdminItem key={element.id} item={element} />
       ))}
     </div>
   );

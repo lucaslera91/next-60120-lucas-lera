@@ -5,16 +5,7 @@ import OperationButton from "../ui/Button/OperationButton";
 import Card from "../ui/Card/Card";
 
 const ProductCard = ({ item }) => {
-  const hanldePropagation = (e) => {
-    e.stopPropagation()
-    console.log('first')
-    
-  }
-  return (
-    <Link href={`/detail/${item.slug}`} className="p-2">
-      <Card item={item} />
-    </Link>
-  );
+  return <Card item={item} />;
 };
 
 export default ProductCard;
