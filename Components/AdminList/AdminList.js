@@ -5,15 +5,16 @@ import AdminItem from "../ui/AdminItem/AdminItem";
 import { useProductListAdminContext } from "@/Contexts/ProductListAdminProvider";
 
 const AdminList = async () => {
-  const { getList, deleteProduct} = useProductListAdminContext();
+  const { getList } = useProductListAdminContext();
 
   const products = await getList();
 
   return (
     <div>
-      {products.length > 0 && products.map((element) => (
-        <AdminItem key={element.id} item={element} />
-      ))}
+      {products.length > 0 &&
+        products.map((element) => (
+          <AdminItem key={element.id} item={element} />
+        ))}
     </div>
   );
 };

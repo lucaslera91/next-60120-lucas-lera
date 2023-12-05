@@ -2,10 +2,11 @@ import productList from '@/data/productList'
 import React from 'react'
 import ProductCard from '../ProductCard/ProductCard'
 
-const ProductList = () => {
+const ProductList = ({products}) => {
+  console.log('proid', products)
   return (
     <div className='display flex w-100 overflow-hidden flex-wrap justify-center'>
-        {productList.map(element => <ProductCard item={element}/>)}
+        {!!products && products.map(element => <ProductCard item={element}/>)}
     </div>
   )
 }

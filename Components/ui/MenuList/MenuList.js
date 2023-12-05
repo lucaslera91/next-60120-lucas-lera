@@ -27,18 +27,6 @@ const MenuList = ({data}) => {
               <div className="text-white hover:text-gray-300">{item.name}</div>
             </Link>
           ))}
-          {/* <Link href="/">
-            <div className="text-white hover:text-gray-300">{Home}</div>
-          </Link>
-          <Link href="/Producto">
-            <div className="text-white hover:text-gray-300">Products</div>
-          </Link>
-          <Link href="/Carrito">
-            <div className="text-white hover:text-gray-300">Cart</div>
-          </Link>
-          <Link href="/Admin">
-            <div className="text-white hover:text-gray-300">Admin</div>
-          </Link> */}
         </div>
       </div>
     </div>
