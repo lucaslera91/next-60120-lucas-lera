@@ -10,24 +10,27 @@ export const generateMetadata = async ({ params }) => {
     title: "LibraryApp - " + data[0]?.title,
   };
 };
-const Detail = ({ params }) => {
+const Detail = async({ params }) => {
   const { id } = params;
-  const item = productList.filter((item) => item?.slug === id)[0];
-  const url =
-    "https://d1amk1w0mr5k0.cloudfront.net/blog/wp-content/uploads/2018/08/GettyImages-802465010-1.jpg";
+  
+  const product = await fetch(`http:localhost:3000/api/detail/${id}`, {
+    cache: "force-cache",
+    next: { revalidate: 60000 },
+  }).then((res) => res.json());
+
   return (
     <div className="flex flex-col bg-black-400 h-screen p-s">
-      <h2 className="text-white">{item?.title}</h2>
+      <h2 className="text-white">{product[0]?.title}</h2>
       <div className="w-100 flex p-4 m-4 justify-center">
-        <img className="h-64 rounded" src={url} alt={"title"} />
+        <img className="h-64 rounded" src={product[0]?.ImageUrl} alt={"title"} />
       </div>
       <div className="bg-white h-screen">
         <div>
-          <p className="text-black">{item?.description}</p>
+          <p className="text-black">{product[0]?.description}</p>
         </div>
         <div>
-          <h3 className="text-black">${item?.price}</h3>
-          <h3 className="text-black">{item?.type}</h3>
+          <h3 className="text-black">${product[0]?.price}</h3>
+          <h3 className="text-black">{product[0]?.type}</h3>
         </div>
       </div>
     </div>

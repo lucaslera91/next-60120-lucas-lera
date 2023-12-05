@@ -7,7 +7,6 @@ export const GET = async () => {
   const data = await getDocs(itemRef).then((snapshot) =>
     snapshot.docs.map((doc) => (doc = { id: doc.id, ...doc.data() }))
   );
-
   return NextResponse.json(data);
 };
 
