@@ -5,9 +5,7 @@ import OperationButton from "../Button/OperationButton";
 import CardButton from "./CardButton/CardButton";
 
 const Card = ({ children, item }) => {
-  const { title, description } = item || {};
-  const imageSrc =
-    "https://hips.hearstapps.com/hmg-prod/images/office-and-school-supplies-arranged-on-wooden-table-royalty-free-image-1687558904.jpg?crop=1xw:0.84415xh;center,top&resize=1200:*";
+  const { title, description, imageUrl, price, stock} = item || {};
 
   const maxDescriptionLength = 30;
   return (
@@ -16,7 +14,7 @@ const Card = ({ children, item }) => {
         <div className="px-6 py-4 bg-gray-800 text-white font-bold text-xl">
           {title}
         </div>
-        <img className="w-full" src={imageSrc} alt={title} />
+        <img className="w-full" src={imageUrl} alt={title} />
         <div className="px-6 py-4">
           <p className="text-gray-400 text-base">
             {description.substring(0, 90)}
@@ -24,6 +22,8 @@ const Card = ({ children, item }) => {
           </p>
         </div>
       </Link>
+      <p>{price}</p>
+      <p>{stock}</p>
       <CardButton />
       {children}
     </div>
