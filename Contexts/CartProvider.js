@@ -7,12 +7,23 @@ import CartItem from "@/Components/ui/CartItem/CartItem";
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+  const initialUser = 'user-name-random1'
  
   const addToCart = (item) => {
     //agregar item a lista
   } 
 
-  const cart = () => {
+  const getCart = async (id) => {
+    var docRef = db.collection('users').doc(initialUser);
+      //const itemRef = collection(db, "users");
+      return await getDocs(docRef).then((snapshot) => {
+        const data = snapshot.docs.map(
+          (doc) => (doc = { id: doc.id, ...doc.data() })
+        );
+        console.log(data);
+        //const result = data.find((item) => item.id === id);
+        return data;
+      });
     //obtener listado
   }
 
@@ -28,7 +39,7 @@ export const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         addToCart,
-        cart,
+        getCart,
         deleteCartItem,
         putCartItem,
       }}
