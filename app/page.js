@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import ProductList from "../Components/ProductList/ProductList";
 import Footer from "../Components/ui/Footer/Footer";
 import Header from "../Components/ui/Header/Header";
@@ -20,7 +21,9 @@ export default async function Home() {
       <Header data={headerData} />
       <div className="p-2">
         <h2 className="text-3xl pb-4">Que producto te gusta?!</h2>
-        {productList && <ProductList products={productList} />}
+        <Suspense fallback={<div>Cargando...</div>}>
+          {productList && <ProductList products={productList} />}
+        </Suspense>
         <Footer data={footerList} />
       </div>
     </main>
