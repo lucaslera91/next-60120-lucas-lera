@@ -16,7 +16,7 @@ const CartItem = ({ children, item }) => {
         <div className="w-1/10 flex justify-center items-center">
           <span className="text-blue-500">-</span>
           <p className="text-blue-200 p-2 m-2 bg-blue-600 rounded">
-            {item.stock}
+            {item.amount}
           </p>
           <span className="text-blue-500">+</span>
 

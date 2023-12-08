@@ -6,7 +6,8 @@ import CardButton from "./CardButton/CardButton";
 
 const Card = ({ children, item }) => {
   const { title, description, imageUrl, price, stock} = item || {};
-
+  
+  const initialUser = "user-name-random1";
   const maxDescriptionLength = 30;
   return (
     <div className="max-w-sm bg-gray-700 rounded overflow-hidden shadow-lg m-4 p-4 h-full">
@@ -24,7 +25,7 @@ const Card = ({ children, item }) => {
       </Link>
       <p>{price}</p>
       <p>{stock}</p>
-      <CardButton />
+      <CardButton item={item} user={initialUser}/>
       {children}
     </div>
   );
