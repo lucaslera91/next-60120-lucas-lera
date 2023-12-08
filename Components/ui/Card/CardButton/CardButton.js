@@ -5,6 +5,7 @@ import OperationButton from "../../Button/OperationButton";
 
 const CardButton = ({ item, user }) => {
   const [amount, setAmount] = useState(0);
+  console.log('car item', item)
   const buttonHandler = {
     substract: () => setAmount((prev) => prev - 1),
     add: () => setAmount((prev) => prev + 1),

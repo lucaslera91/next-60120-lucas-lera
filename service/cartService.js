@@ -28,9 +28,7 @@ export const addCartItemService = async (id, item) => {
   const colRef = collection(db, "users");
   const docRef = doc(colRef, id);
   const data = await getCartListservice(id);
-  console.log(data);
   const newList = [...data.cart, item];
-  console.log(newList);
   await updateDoc(docRef, { cart: newList });
   return data;
 };
@@ -39,7 +37,7 @@ export const addCartItemService = async (id, item) => {
 
 export const addCartItemApi = async (initialuser, item) => {
   const data = await fetch(
-    `http:localhost:3000/Carrito/api/cart/${initialuser}`,
+    `/api/cart/${initialuser}`,
     {
       method: "POST",
       cache: "no-cache",
@@ -59,3 +57,27 @@ export const addCartItemApi = async (initialuser, item) => {
 //   const data = await getDoc(docRef).then((doc) => doc.data());
 //   return data;
 // };
+
+// delete item
+
+export const deleteCartItemService = async (id, item) => {
+  const colRef = collection(db, "users");
+  const docRef = doc(colRef, id);
+  const data = await getCartListservice(id);
+  const newList = data.cart.filter((element) => element.id === item.id);
+  console.log(newList);
+  await updateDoc(docRef, { cart: newList });
+  return data;
+};
+
+export const deleteCartItemApi= async (user, item) => {
+    console.log(item)
+    const data = await fetch(
+      `/api/cart/${user}-${item.id}`,
+      {
+        method: "DELETE",
+        cache: "no-cache",
+      }
+    ).catch((error) => console.log(error));
+    return data;
+  };

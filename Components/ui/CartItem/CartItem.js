@@ -1,7 +1,12 @@
+import { deleteCartItemService } from "@/service/cartService";
 import React from "react";
+import DeleteButton from "../Button/DeleteButton";
 
 const CartItem = ({ children, item }) => {
   const { title, description } = item || {};
+
+  const initialUser = "user-name-random1";
+
   const imageSrc =
     "https://hips.hearstapps.com/hmg-prod/images/office-and-school-supplies-arranged-on-wooden-table-royalty-free-image-1687558904.jpg?crop=1xw:0.84415xh;center,top&resize=1200:*";
   return (
@@ -20,9 +25,7 @@ const CartItem = ({ children, item }) => {
           </p>
           <span className="text-blue-500">+</span>
 
-          <button className="text-red-200 p-2 m-2 bg-red-600 rounded">
-            Eliminar
-          </button>
+          <DeleteButton item={item} user={initialUser} />
         </div>
       </div>
       {children}

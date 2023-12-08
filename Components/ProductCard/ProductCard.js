@@ -5,6 +5,7 @@ import OperationButton from "../ui/Button/OperationButton";
 import Card from "../ui/Card/Card";
 
 const ProductCard = ({ item }) => {
+  console.log(item)
   return <Card item={item} />;
 };
 

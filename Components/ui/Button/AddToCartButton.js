@@ -1,13 +1,13 @@
-"use client";
+
 import { addCartItemApi, addCartItemService } from "@/service/cartService";
 import React from "react";
 
 const AddToCartButton = ({ item, user, amount, disabled }) => {
+  console.log('test-', item)
   const handleAddToCart = () => {
-    console.log(item, user, amount);
     const newItem = { ...item, amount: amount };
-    console.log(newItem);
-    addCartItemService(user, newItem);
+    //addCartItemService(user, newItem);
+    addCartItemApi(user, newItem);
   };
   return (
     <button
