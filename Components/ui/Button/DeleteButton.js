@@ -5,8 +5,8 @@ import React from "react";
 const DeleteButton = ({user, item}) => {
   const handleDeleteItem = () => {
     // deleteCartItemService(user, item);
-    //console.log('this', user, item)
-    console.log('click')
+    ////console.log('this', user, item)
+    //console.log('click')
     deleteCartItemApi(user, item)
   };
   return (

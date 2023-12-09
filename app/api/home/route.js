@@ -12,7 +12,7 @@ export const GET = async () => {
 
 export const POST = async (request) => {
   const data = await request.json();
-  console.log(data);
+  //console.log(data);
   // crear registro, modificar algo, BD, etc.
 
   return NextResponse.json(data);

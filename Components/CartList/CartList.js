@@ -11,7 +11,7 @@ const CartList = async () => {
 
   return (
     <div className="">
-      <h2 className="text-4xl font-bold text-blue-500 mb-4">Total: {total}</h2>
+      <h2 className="text-4xl font-bold text-blue-500 mb-4">Total: $ {total}</h2>
       <p className="text-lg text-white-600">Items: {cartList.length}</p>
 
       {!cartList && <div>Loading...</div>}

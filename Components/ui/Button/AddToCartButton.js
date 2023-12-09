@@ -3,7 +3,7 @@ import { addCartItemApi, addCartItemService } from "@/service/cartService";
 import React from "react";
 
 const AddToCartButton = ({ item, user, amount, disabled }) => {
-  console.log('test-', item)
+  //console.log('test-', item)
   const handleAddToCart = () => {
     const newItem = { ...item, amount: amount };
     //addCartItemService(user, newItem);

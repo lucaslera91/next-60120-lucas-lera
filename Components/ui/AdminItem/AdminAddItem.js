@@ -18,9 +18,9 @@ const AddAdminItem = ({ children, handleShowAddProduct }) => {
   const [productData, setProductData] = useState(initialProductState);
 
   const handleChange = (e) => {
-    console.log(e);
+    //console.log(e);
     setProductData({ ...productData, [e.target.id]: e.target.value });
-    console.log(productData);
+    //console.log(productData);
   };
   const addProductHandler = () => {
     const newProduct = { ...productData, id: generateId() };

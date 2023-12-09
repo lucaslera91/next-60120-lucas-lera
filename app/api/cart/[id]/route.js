@@ -22,9 +22,9 @@ export const DELETE = async (_, { params }) => {
   const { id } = params;
   const user = id.split("-").slice(0, -1).join("-");
   const itemId = id.split("-").pop();
-  console.log("id", user);
-  console.log("item id", itemId);
-  console.log(user, itemId)
+  //console.log("id", user);
+  //console.log("item id", itemId);
+  //console.log(user, itemId)
 
   const data = await deleteCartItemService(user, itemId);
   return NextResponse.json(data);
