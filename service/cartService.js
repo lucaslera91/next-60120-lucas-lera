@@ -28,6 +28,11 @@ export const addCartItemService = async (id, item) => {
   const colRef = collection(db, "users");
   const docRef = doc(colRef, id);
   const data = await getCartListservice(id);
+//const hasItem = data.cart.find((element) => element.id === item.id);
+//   const newItem =
+//     hasItem !== -1
+//       ? { ...hasItem, amount: hasItem.amount + item.amount }
+//       : item;
   const newList = [...data.cart, item];
   await updateDoc(docRef, { cart: newList });
   return data;
@@ -61,7 +66,7 @@ export const deleteCartItemService = async (id, itemId) => {
   const colRef = collection(db, "users");
   const docRef = doc(colRef, id);
   const data = await getCartListservice(id);
-  console.log(data.cart)
+  console.log(data.cart);
   const newList = data.cart.filter((element) => element.id !== itemId);
   console.log(newList);
   await updateDoc(docRef, { cart: newList });
