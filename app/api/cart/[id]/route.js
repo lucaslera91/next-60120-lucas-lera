@@ -7,14 +7,14 @@ import {
 
 export const GET = async (_, { params }) => {
   const { id } = params;
-  console.log("test", _);
   const data = await getCartListservice(id);
   return NextResponse.json(data?.cart);
 };
 
-export const POST = async (_, { req }) => {
-  const { id, item } = req.body;
-  const data = await deleteCartItemService(id, item);
+export const POST = async (req) => {
+  const dataSent = await req.json();
+  const { id, item } = dataSent;
+  const data = await addCartItemService(id, item);
   return NextResponse.json(data);
 };
 

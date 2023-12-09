@@ -36,17 +36,14 @@ export const addCartItemService = async (id, item) => {
 //Api service
 
 export const addCartItemApi = async (initialuser, item) => {
-  const data = await fetch(
-    `/api/cart/${initialuser}`,
-    {
-      method: "POST",
-      cache: "no-cache",
-      body: JSON.stringify({
-        id: initialuser,
-        item: item,
-      }),
-    }
-  ).catch((error) => console.log(error));
+  const data = await fetch(`/api/cart/${initialuser}`, {
+    method: "POST",
+    cache: "no-cache",
+    body: JSON.stringify({
+      id: initialuser,
+      item: item,
+    }),
+  }).catch((error) => console.log(error));
   return data;
 };
 
@@ -70,14 +67,11 @@ export const deleteCartItemService = async (id, item) => {
   return data;
 };
 
-export const deleteCartItemApi= async (user, item) => {
-    console.log(item)
-    const data = await fetch(
-      `/api/cart/${user}-${item.id}`,
-      {
-        method: "DELETE",
-        cache: "no-cache",
-      }
-    ).catch((error) => console.log(error));
-    return data;
-  };
+export const deleteCartItemApi = async (user, item) => {
+  console.log(item);
+  const data = await fetch(`/api/cart/${user}-${item.id}`, {
+    method: "DELETE",
+    cache: "no-cache",
+  }).catch((error) => console.log(error));
+  return data;
+};
