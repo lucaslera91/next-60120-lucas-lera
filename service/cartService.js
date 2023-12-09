@@ -57,18 +57,18 @@ export const addCartItemApi = async (initialuser, item) => {
 
 // delete item
 
-export const deleteCartItemService = async (id, item) => {
+export const deleteCartItemService = async (id, itemId) => {
   const colRef = collection(db, "users");
   const docRef = doc(colRef, id);
   const data = await getCartListservice(id);
-  const newList = data.cart.filter((element) => element.id === item.id);
+  console.log(data.cart)
+  const newList = data.cart.filter((element) => element.id !== itemId);
   console.log(newList);
   await updateDoc(docRef, { cart: newList });
   return data;
 };
 
 export const deleteCartItemApi = async (user, item) => {
-  console.log(item);
   const data = await fetch(`/api/cart/${user}-${item.id}`, {
     method: "DELETE",
     cache: "no-cache",
