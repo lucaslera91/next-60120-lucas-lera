@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import AddToCartButton from "../../Button/AddToCartButton";
 import OperationButton from "../../Button/OperationButton";
 
-const CardButton = ({ item, user }) => {
+const CardButton = ({ item, user, bg = "dark" }) => {
   const [amount, setAmount] = useState(0);
   //console.log('car item', item)
   const buttonHandler = {
@@ -22,8 +22,17 @@ const CardButton = ({ item, user }) => {
         side="left"
         disabled={amount < 1}
       />
-      <AddToCartButton disabled={amount < 1} item={item} user={user} amount={amount} />
-      <span className="text-white flex justify-center items-center w-1/10">
+      <AddToCartButton
+        disabled={amount < 1}
+        item={item}
+        user={user}
+        amount={amount}
+      />
+      <span
+        className={`${
+          bg === "dark" ? "text-white" : "text-black"
+        } flex justify-center items-center w-1/10`}
+      >
         {amount}
       </span>
       <OperationButton

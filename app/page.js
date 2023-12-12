@@ -21,9 +21,9 @@ export default async function Home() {
       <Header data={headerData} />
       <div className="p-2">
         <h2 className="text-3xl pb-4">Que producto te gusta?!</h2>
-        <Suspense fallback={<div>Cargando...</div>}>
+        {/* <Suspense fallback={<div>Cargando...</div>}> */}
           {productList && <ProductList products={productList} />}
-        </Suspense>
+        {/* </Suspense> */}
         <Footer data={footerList} />
       </div>
     </main>

@@ -1,17 +1,15 @@
 import React from "react";
 import Link from "next/link";
-import AddToCartButton from "../Button/AddToCartButton";
-import OperationButton from "../Button/OperationButton";
 import CardButton from "./CardButton/CardButton";
 
 const Card = ({ children, item }) => {
-  const { title, description, imageUrl, price, stock} = item || {};
-  
+  const { title, description, imageUrl, price, stock, id} = item || {};
+  console.log('item', item)
   const initialUser = "user-name-random1";
   const maxDescriptionLength = 30;
   return (
     <div className="max-w-sm bg-gray-700 rounded overflow-hidden shadow-lg m-4 p-4 h-full">
-      <Link href={`/detail/${item.slug}`} className="p-2">
+      <Link href={`/detail/${id}`} className="p-2">
         <div className="px-6 py-4 bg-gray-800 text-white font-bold text-xl">
           {title}
         </div>
