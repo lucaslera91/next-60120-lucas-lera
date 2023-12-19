@@ -3,6 +3,7 @@ import {
   addCartItemService,
   deleteCartItemService,
   getCartListservice,
+  updateCartItemService,
 } from "@/service/cartService";
 
 export const GET = async (_, { params }) => {
@@ -27,5 +28,12 @@ export const DELETE = async (_, { params }) => {
   //console.log(user, itemId)
 
   const data = await deleteCartItemService(user, itemId);
+  return NextResponse.json(data);
+};
+
+export const PUT = async (req) => {
+  const dataSent = await req.json();
+  const { id, item } = dataSent;
+  const data = await updateCartItemService(id, item);
   return NextResponse.json(data);
 };

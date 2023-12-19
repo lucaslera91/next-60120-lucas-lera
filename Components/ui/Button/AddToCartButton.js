@@ -2,17 +2,24 @@
 import { addCartItemApi, addCartItemService } from "@/service/cartService";
 import React from "react";
 
-const AddToCartButton = ({ item, user, amount, disabled }) => {
+const AddToCartButton = ({
+  item,
+  user,
+  amount,
+  disabled,
+  styles,
+  setAmount,
+}) => {
   //console.log('test-', item)
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     const newItem = { ...item, amount: amount };
     //addCartItemService(user, newItem);
-    addCartItemApi(user, newItem);
+    await addCartItemApi(user, newItem) ? setAmount(0) : null;
   };
   return (
     <button
       onClick={handleAddToCart}
-      className="flex justify-center rounded-none px-4 py-2 bg-blue-500 text-white hover:bg-blue-700 w-3/6"
+      className={`${styles.addToCartButton}`}
       disabled={disabled}
     >
       AddToCart

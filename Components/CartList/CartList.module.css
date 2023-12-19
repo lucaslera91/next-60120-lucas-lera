@@ -1,0 +1,22 @@
+.cartContainer {
+}
+.titleContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.confirmPurchase {
+  background-color: green;
+  padding: 10px 20px 10px 20px;
+  background-color: var(--confirm-bg);
+  color: var(--confirm-text);
+}
+.confirmPurchase:hover {
+  background-color: var(--confirm-hover);
+}
+
+.cartListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

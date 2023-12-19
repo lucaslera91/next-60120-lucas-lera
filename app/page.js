@@ -12,7 +12,7 @@ export const metadata = {
 
 export default async function Home() {
   const productList = await fetch("http:localhost:3000/api/home", {
-    cache: "force-cache",
+    cache: "no-cache",
     next: { revalidate: 60000 },
   }).then((res) => res.json());
 

@@ -14,7 +14,6 @@ const CarritoLayout = ({ children }) => {
     <div className="p-2">
       <Header data={headerData} />
       <div className="p-2">
-        <h2 className="text-3xl pb-4">Confirma tu carrito!</h2>
         {children}
         <Footer data={footerList} />
       </div>

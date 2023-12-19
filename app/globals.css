@@ -3,6 +3,26 @@
 @tailwind utilities;
 
 :root {
+  --primary-bg: #e6f7ff;    /* Light blue background */
+  --card-bg: #b2e8e8;       /* Compatible tone for cards */
+  --button-primary: #00ced1; /* Turquoise for primary buttons */
+  --button-primary-hover: #007a7a; /* Darker turquoise for primary buttons on hover */
+  --button-text-hover: #fff; /* White text for primary buttons on hover */
+  --button-secondary: #0056b3; /* Dark blue for secondary buttons */
+  --delete-bg: #dc3545;      /* Background color for delete button */
+  --delete-text: #fff;      /* Text color for delete button */
+  --delete-hover: #a71d2a;   /* Darker red for delete button on hover */
+  --confirm-bg: #28a745;     /* Background color for confirm button */
+  --confirm-text: #fff;      /* Text color for confirm button */
+  --confirm-hover: #218838;  /* Darker green for confirm button on hover */
+  --text: #333;             /* Dark gray text */
+  --description-text: #666; /* Gray for description text */
+  --info-text: #007bff;     /* Dark blue for information text */
+
+  --menu-bg: #f8f9fa;       /* Light gray for menu background */
+  --menu-text: #495057;     /* Dark gray for menu text */
+}
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -24,4 +44,8 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+} */
+body {
+  background-color: var(--primary-bg);
+  color: var(--text);
 }

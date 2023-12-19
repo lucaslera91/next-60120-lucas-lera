@@ -1,0 +1,38 @@
+.cardButtonContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+
+}
+.operationButton {
+    border-radius: 50%;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text);
+    background-color: var(--button-primary);
+    cursor: pointer;
+}
+
+.operationButton:hover {
+    background-color: var(--button-primary-hover);
+    color: var(--button-text-hover)
+}
+
+.addToCartButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px 10px 20px; 
+    border-radius: 30px;
+    color: var(--text);
+    background-color: var(--button-primary);
+    cursor: pointer;
+}
+.addToCartButton:hover {
+    background-color: var(--button-primary-hover);
+    color: var(--button-text-hover)
+}
