@@ -14,7 +14,9 @@ export default async function Home() {
   const productList = await fetch(`http://${process.env.VERCEL_URL}/api/home`, {
     cache: "no-cache",
     next: { revalidate: 60000 },
-  }).then((res) => res.json());
+  })
+    .then((res) => res.json())
+    .catch((error) => console.log(error));
 
   return (
     <main className="space-y-4 rounded p-2">
