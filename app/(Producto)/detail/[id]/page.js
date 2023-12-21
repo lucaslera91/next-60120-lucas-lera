@@ -18,7 +18,7 @@ const Detail = async ({ params }) => {
   const { id } = params;
   const initialUser = "user-name-random1";
 
-  const product = await fetch(`${process.env.AUTH_DOMAIN}/api/detail/${id}`, {
+  const product = await fetch(`${process.env.VERCEL_URL}/api/detail/${id}`, {
     cache: "no-cache",
     // next: { revalidate: 60000 },
   }).then((res) => res.json());
