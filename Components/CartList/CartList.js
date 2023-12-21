@@ -20,14 +20,14 @@ const CartList = async () => {
     total: total,
     id: generateId(),
     status: "En preparacio",
-    items: cartList.length,
+    items: cartList?.length,
   };
   return (
     <div className={styles.cartContainer}>
       <h2 className={H2_CLEAR}>Confirma tu carrito!</h2>
       <div className={styles.titleContainer}>
         <h2 className={H3_DARK}>Total: $ {total}</h2>
-        <p className={H4_CLEAR}>Items: {cartList.length}</p>
+        <p className={H4_CLEAR}>Items: {cartList?.length}</p>
         <ConfirmButton
           order={order}
           initialUser={initialUser}

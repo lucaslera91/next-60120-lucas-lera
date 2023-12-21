@@ -15,23 +15,24 @@ const QuantitySelector = ({ item, initialUser }) => {
   const items = [1, 2, 3, 4, 5, "6 o mas"];
   // Event handler for changing the selected option
   const handleSelectChange = async (event) => {
-    const value = event.target.value;
-    if (value === SIX_OR_MORE) {
-      const { value } = await Swal.fire({
-        title: "Cuantas unidades queres?",
-        icon: "question",
-        input: "range",
-        inputLabel: "Unidades",
-        inputAttributes: {
-          min: "0",
-          max: item.stock,
-          step: "1",
-        },
-        inputValue: item.amount,
-      });
+    const targetValue = event.target.value;
+    if (targetValue === SIX_OR_MORE) {
+      // const { value } = await Swal.fire({
+      //   title: "Cuantas unidades queres?",
+      //   icon: "question",
+      //   input: "range",
+      //   inputLabel: "Unidades",
+      //   inputAttributes: {
+      //     min: "0",
+      //     max: item.stock,
+      //     step: "1",
+      //   },
+      //   inputValue: item.amount,
+      // });
+      const value = 3
       setNewItem({ ...item, amount: value });
     } else {
-      setNewItem({ ...item, amount: event.target.value });
+      setNewItem({ ...item, amount: targetValue });
     }
   };
 

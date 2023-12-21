@@ -19,11 +19,12 @@ export const getCartListApi = async (initialuser) => {
   })
     .then((res) => res.json())
     .catch((error) =>
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Error en la pagina, por favor intenta luego",
-      })
+      // Swal.fire({
+      //   icon: "error",
+      //   title: "Oops...",
+      //   text: "Error en la pagina, por favor intenta luego",
+      // })
+      console.log(error)
     );
   return data;
 };

@@ -13,7 +13,6 @@ export const getOrdersListservice = async (id) => {
 };
 
 //Api service
-
 export const getOrdersListApi = async (initialuser) => {
   return await fetch(`http://${process.env.VERCEL_URL}/api/pedidos/${initialuser}`, {
     cache: "no-store",
@@ -50,14 +49,7 @@ export const addOrdersItemApi = async (initialuser, item) => {
     }),
   })
     .then(() => {
-      Swal.fire({
-        title: "Genial!",
-        text: "Orden creada correctamente",
-        icon: "success",
-        timer: 1200,
-        toast: true,
-        position: "top-end",
-      });
+
       return true;
     })
     .catch((error) =>

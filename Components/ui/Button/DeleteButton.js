@@ -13,14 +13,14 @@ const DeleteButton = ({ user, item }) => {
   const handleDeleteItem = async () => {
     deleteCartItemApi(user, item)
       .then((res) => {
-        Swal.fire({
-          title: "Exito!",
-          text: "Item eliminado correctamente",
-          icon: "success",
-          timer: 1200,
-          toast: true,
-          position: "top-end",
-        });
+        // Swal.fire({
+        //   title: "Exito!",
+        //   text: "Item eliminado correctamente",
+        //   icon: "success",
+        //   timer: 1200,
+        //   toast: true,
+        //   position: "top-end",
+        // });
         router.refresh();
       })
       .catch((error) =>
