@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./QuantitySelector.module.css";
@@ -37,29 +37,41 @@ const QuantitySelector = ({ item, initialUser }) => {
 
   useEffect(() => {
     console.log(Object.keys(newItem).length !== 0);
-    if (Object.keys(newItem).length !== 0) {
-      updateCartItemApi(initialUser, newItem);
-      router.refresh();
-      //revalidatePath(`cart/[id]`)
+    if (Object.keys(newItem).length !== 0 && item.amount !== newItem.amount) {
+      const update = async () => {
+        updateCartItemApi(initialUser, newItem)
+          .then((res) => {
+            Swal.fire({
+              title: "Genial!",
+              text: "Item agregado correctamente",
+              icon: "success",
+              timer: 1200,
+              toast: true,
+              position: "top-end",
+            });
+            router.refresh();
+          })
+          .catch((error) => console.log(error));
+      };
+      update();
     }
+    console.log("too many", newItem);
   }, [newItem]);
 
   return (
     <div className={styles.selectorContainer}>
       <select
         id="selectItem"
-        value={newItem.amount}
+        value={newItem.amount > 6 ? '6 o mas' : newItem.amount}
         onChange={handleSelectChange}
       >
-        <option value="un.">un.</option>
+        <option value="un."></option>
         {items.map((item, index) => (
           <option key={index} value={item}>
             {item}
           </option>
         ))}
       </select>
-
-      {/* Display the selected option */}
     </div>
   );
 };

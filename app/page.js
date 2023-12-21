@@ -11,7 +11,7 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const productList = await fetch("http:localhost:3000/api/home", {
+  const productList = await fetch(`${process.env.AUTH_DOMAIN}/api/home`, {
     cache: "no-cache",
     next: { revalidate: 60000 },
   }).then((res) => res.json());
@@ -22,7 +22,7 @@ export default async function Home() {
       <div className="p-2">
         <h2 className="text-3xl pb-4">Que producto te gusta?!</h2>
         {/* <Suspense fallback={<div>Cargando...</div>}> */}
-          {productList && <ProductList products={productList} />}
+        {productList && <ProductList products={productList} />}
         {/* </Suspense> */}
         <Footer data={footerList} />
       </div>

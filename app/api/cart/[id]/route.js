@@ -15,25 +15,33 @@ export const GET = async (_, { params }) => {
 export const POST = async (req) => {
   const dataSent = await req.json();
   const { id, item } = dataSent;
-  const data = await addCartItemService(id, item);
-  return NextResponse.json(data);
+  try {
+    await addCartItemService(id, item);
+    return NextResponse.json({ status: 200 });
+  } catch (error) {
+    return NextResponse.json({ status: 500 });
+  }
 };
 
 export const DELETE = async (_, { params }) => {
   const { id } = params;
   const user = id.split("-").slice(0, -1).join("-");
   const itemId = id.split("-").pop();
-  //console.log("id", user);
-  //console.log("item id", itemId);
-  //console.log(user, itemId)
-
-  const data = await deleteCartItemService(user, itemId);
-  return NextResponse.json(data);
+  try {
+    await deleteCartItemService(user, itemId);
+    return NextResponse.json({ status: 200 });
+  } catch (error) {
+    return NextResponse.json({ status: 500 });
+  }
 };
 
-export const PUT = async (req) => {
+export const PUT = async (req, { params }) => {
   const dataSent = await req.json();
   const { id, item } = dataSent;
-  const data = await updateCartItemService(id, item);
-  return NextResponse.json(data);
+  try {
+    await updateCartItemService(id, item);
+    return NextResponse.json({ status: 200 });
+  } catch (error) {
+    return NextResponse.json({ status: 500 });
+  }
 };

@@ -1,15 +1,38 @@
-"use client"
-import { deleteCartItemApi, deleteCartItemService } from "@/service/cartService";
+"use client";
+import {
+  deleteCartItemApi,
+  deleteCartItemService,
+} from "@/service/cartService";
 import React from "react";
-import styles from './Button.module.css';
+import styles from "./Button.module.css";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
-const DeleteButton = ({user, item}) => {
-  const handleDeleteItem = () => {
-    // deleteCartItemService(user, item);
-    ////console.log('this', user, item)
-    //console.log('click')
-    console.log(user, item)
+const DeleteButton = ({ user, item }) => {
+  const router = useRouter();
+  const handleDeleteItem = async () => {
     deleteCartItemApi(user, item)
+      .then((res) => {
+        Swal.fire({
+          title: "Exito!",
+          text: "Item eliminado correctamente",
+          icon: "success",
+          timer: 1200,
+          toast: true,
+          position: "top-end",
+        });
+        router.refresh();
+      })
+      .catch((error) =>
+        Swal.fire({
+          title: "Error",
+          text: "Ocurrio un error, intente nuevamente",
+          icon: "error",
+          timer: 1200,
+          toast: true,
+          position: "top-end",
+        })
+      );
   };
   return (
     <button

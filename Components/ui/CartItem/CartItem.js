@@ -1,4 +1,3 @@
-
 import { H2_CLEAR, H3_DARK, H4_CLEAR, H6_CLEAR } from "@/app/utils/constants";
 import { deleteCartItemService } from "@/service/cartService";
 import React from "react";
@@ -7,15 +6,13 @@ import OperationButton from "../Button/OperationButton";
 import QuantitySelector from "../Selector/QuantitySelector";
 import styles from "./CartItem.module.css";
 
-
 const CartItem = ({ item, revalidate }) => {
   const { title, description, price, imageUrl } = item || {};
-
   const initialUser = "user-name-random1";
 
   return (
     <div className={`${styles.cartItemContainer} rounded`}>
-      <img className={styles.cardImg} src={imageUrl} alt={title} />
+      <img className={styles.cartImg} src={imageUrl} alt={title} />
       <div className="px-6 py-4 w-7/10">
         <div className="font-bold text-xl text-black mb-2">{title}</div>
 
@@ -27,8 +24,9 @@ const CartItem = ({ item, revalidate }) => {
       </div>
       <div className={styles.cartEditItem}>
         <h4 className={H4_CLEAR}>{item.amount}</h4>
-        <QuantitySelector item={item}  initialUser={initialUser}/>
+        <QuantitySelector item={item} initialUser={initialUser} />
       </div>
+      <DeleteButton user={initialUser} item={item} />
     </div>
   );
 };
