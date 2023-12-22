@@ -12,7 +12,7 @@ export const metadata = {
 
 export default async function Home() {
 
-  const productList = await fetch(`${process.env.VERCEL_URL}/api/home`, {
+  const productList = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/home`, {
     cache: "no-cache",
     next: { revalidate: 60000 },
   })

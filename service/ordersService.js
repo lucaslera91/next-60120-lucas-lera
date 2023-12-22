@@ -14,7 +14,7 @@ export const getOrdersListservice = async (id) => {
 
 //Api service
 export const getOrdersListApi = async (initialuser) => {
-  return await fetch(`${process.env.VERCEL_URL}/api/pedidos/${initialuser}`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/pedidos/${initialuser}`, {
     cache: "no-store",
   }).then((res) => res.json())
   .catch((error) => console.log(error)
@@ -40,7 +40,7 @@ export const addOrdersItemService = async (id, order) => {
 //Api service
 
 export const addOrdersItemApi = async (initialuser, item) => {
-  return await fetch(`${process.env.VERCEL_URL}/api/pedidos/${initialuser}`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/pedidos/${initialuser}`, {
     method: "POST",
     cache: "no-store",
     body: JSON.stringify({

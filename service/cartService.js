@@ -14,8 +14,8 @@ export const getCartListservice = async (id) => {
 //Api service
 
 export const getCartListApi = async (initialuser) => {
-  console.log('first', process.env.VERCEL_URL)
-  return await fetch(`${process.env.VERCEL_URL}/api/cart/${initialuser}`, {
+  console.log('first', process.env.NEXT_PUBLIC_VERCEL_URL)
+  return await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/cart/${initialuser}`, {
     cache: "no-store",
   })
     .then((res) => res.json())
@@ -50,7 +50,7 @@ export const addCartItemService = async (id, item) => {
 //Api service
 
 export const addCartItemApi = async (initialuser, item) => {
-  return await fetch(`${process.env.VERCEL_URL}/api/cart/${initialuser}`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/cart/${initialuser}`, {
     method: "POST",
     cache: "no-store",
     body: JSON.stringify({
@@ -106,7 +106,7 @@ export const updateCartItemService = async (id, item) => {
 };
 
 export const updateCartItemApi = async (initialUser, item) => {
-  return await fetch(`${process.env.VERCEL_URL}/api/cart/${initialUser}`, {
+  return await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/cart/${initialUser}`, {
     method: "PUT",
     cache: "no-store",
     body: JSON.stringify({
@@ -131,7 +131,7 @@ export const deleteCartItemService = async (id, itemId) => {
 };
 
 export const deleteCartItemApi = async (user, item) => {
-  const data = await fetch(`${process.env.VERCEL_URL}/api/cart/${user}-${item.id}`, {
+  const data = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/cart/${user}-${item.id}`, {
     method: "DELETE",
     cache: "no-store",
   }).catch((error) => console.log(error));
