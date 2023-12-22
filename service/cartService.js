@@ -14,6 +14,7 @@ export const getCartListservice = async (id) => {
 //Api service
 
 export const getCartListApi = async (initialuser) => {
+  console.log('first', process.env.VERCEL_URL)
   return await fetch(`${process.env.VERCEL_URL}/api/cart/${initialuser}`, {
     cache: "no-store",
   })
