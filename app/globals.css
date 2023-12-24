@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind app;
 
 :root {
   --primary-bg: #e6f7ff;    /* Light blue background */
