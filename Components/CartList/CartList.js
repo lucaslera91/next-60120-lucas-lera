@@ -9,9 +9,7 @@ import styles from "./CartList.module.css";
 
 const CartList = async () => {
   const initialUser = "user-name-random1";
-
   const cartList = await getCartListApi(initialUser);
-
   const total = cartList?.reduce((accumulator, currentObject) => {
     return accumulator + currentObject.price * currentObject.amount;
   }, 0);

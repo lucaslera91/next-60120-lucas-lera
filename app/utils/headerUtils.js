@@ -12,6 +12,10 @@ export const headerData = [
     tabUrl: "/Carrito",
   },
   {
+    name: "Pedidos",
+    tabUrl: "/Pedidos",
+  },
+  {
     name: "Admin",
     tabUrl: "/Admin",
   },

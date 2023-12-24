@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 
 //Firebase service
 export const getOrdersListservice = async (id) => {
-    console.log('id', id)
   const colRef = collection(db, "users");
   const docRef = doc(colRef, id);
   return await getDoc(docRef).then((doc) => doc.data());
@@ -14,54 +13,60 @@ export const getOrdersListservice = async (id) => {
 
 //Api service
 export const getOrdersListApi = async (initialuser) => {
-  return await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/pedidos/${initialuser}`, {
-    cache: "no-store",
-  }).then((res) => res.json())
-  .catch((error) => console.log(error)
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Oops...",
-    //     text: "Error en la pagina, por favor intenta luego",
-    //   })
+  return await fetch(
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/pedidos/${initialuser}`,
+    {
+      cache: "no-store",
+      // next: { validate: 1 }  
+      next: { tags: ['orders'] } 
+    }
+  )
+    .then((res) => res.json())
+    .catch(
+      (error) => console.log(error)
+      //   Swal.fire({
+      //     icon: "error",
+      //     title: "Oops...",
+      //     text: "Error en la pagina, por favor intenta luego",
+      //   })
     );
 };
 
-//POST - Add Cart Item
+//POST - Add Order
 
 export const addOrdersItemService = async (id, order) => {
   const colRef = collection(db, "users");
   const docRef = doc(colRef, id);
   const data = await getOrdersListservice(id);
-  const newList = data.orders.push(order);
-  console.log(newList)
+  const newList = data.orders;
+  newList.push(order);
   return await updateDoc(docRef, { orders: newList });
 };
 
 //Api service
 
-export const addOrdersItemApi = async (initialuser, item) => {
-  return await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/pedidos/${initialuser}`, {
-    method: "POST",
-    cache: "no-store",
-    body: JSON.stringify({
-      id: initialuser,
-      item: item,
-    }),
-  })
-    .then(() => {
-
-      return true;
+export const addOrdersItemApi = async (initialuser, order) => {
+  return await fetch(
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/pedidos/${initialuser}`,
+    {
+      method: "POST",
+      cache: "no-store",
+      next: { revalidate: 1000 },
+      body: JSON.stringify({
+        id: initialuser,
+        order: order,
+      }),
+    }
+  ).catch((error) =>
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Error en la pagina, por favor intenta luego",
+      timer: 1200,
+      toast: true,
+      position: "top-end",
     })
-    .catch((error) =>
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Error en la pagina, por favor intenta luego",
-        timer: 1200,
-        toast: true,
-        position: "top-end",
-      })
-    );
+  );
 };
 
 // export const getCartListService = async () => {

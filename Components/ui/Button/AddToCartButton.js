@@ -1,4 +1,3 @@
-
 import { addCartItemApi, addCartItemService } from "@/service/cartService";
 import React from "react";
 
@@ -14,7 +13,11 @@ const AddToCartButton = ({
   const handleAddToCart = async () => {
     const newItem = { ...item, amount: amount };
     //addCartItemService(user, newItem);
-    await addCartItemApi(user, newItem) ? setAmount(0) : null;
+    addCartItemApi(user, newItem)
+      .then(() => {
+        setAmount(0);
+      })
+      .catch((error) => console.log(error));
   };
   return (
     <button

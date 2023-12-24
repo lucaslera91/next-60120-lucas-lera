@@ -14,10 +14,13 @@ export const getCartListservice = async (id) => {
 //Api service
 
 export const getCartListApi = async (initialuser) => {
-  console.log('first', process.env.NEXT_PUBLIC_VERCEL_URL)
-  return await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/cart/${initialuser}`, {
-    cache: "no-store",
-  })
+  return await fetch(
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/cart/${initialuser}`,
+    {
+      cache: "no-store",
+      next: { revalidate: 1000 },
+    }
+  )
     .then((res) => res.json())
     .catch((error) =>
       // Swal.fire({
@@ -39,25 +42,33 @@ export const addCartItemService = async (id, item) => {
   console.log("data add item", data);
   const newList = data.cart;
   const indexOfItem = newList.findIndex((element) => element.id === item.id);
-  indexOfItem !== -1
-    ? (newList[indexOfItem].amount += item.amount)
-    : newList.push(item);
+  if (indexOfItem !== -1) {
+    const newSum =
+      parseInt(newList[indexOfItem].amount) + parseInt(item.amount);
+    newList[indexOfItem].amount = newSum > item.stock ? item.stock : newSum;
+  } else {
+    newList.push(item);
+  }
 
-  console.log("new list", newList);
   return await updateDoc(docRef, { cart: newList });
 };
 
 //Api service
 
 export const addCartItemApi = async (initialuser, item) => {
-  return await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/cart/${initialuser}`, {
-    method: "POST",
-    cache: "no-store",
-    body: JSON.stringify({
-      id: initialuser,
-      item: item,
-    }),
-  })
+  return await fetch(
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/cart/${initialuser}`,
+    {
+      method: "POST",
+      cache: "no-cache",
+      //next: { tags: ["1000"] },
+      next: { revalidate: 1000 },
+      body: JSON.stringify({
+        id: initialuser,
+        item: item,
+      }),
+    }
+  )
     .then(() => {
       Swal.fire({
         title: "Genial!",
@@ -106,14 +117,17 @@ export const updateCartItemService = async (id, item) => {
 };
 
 export const updateCartItemApi = async (initialUser, item) => {
-  return await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/cart/${initialUser}`, {
-    method: "PUT",
-    cache: "no-store",
-    body: JSON.stringify({
-      id: initialUser,
-      item: item,
-    }),
-  })
+  return await fetch(
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/cart/${initialUser}`,
+    {
+      method: "PUT",
+      cache: "no-store",
+      body: JSON.stringify({
+        id: initialUser,
+        item: item,
+      }),
+    }
+  )
     .then((res) => console.log("not here", res))
     .catch((error) => console.log(error));
   //return data;
@@ -131,9 +145,12 @@ export const deleteCartItemService = async (id, itemId) => {
 };
 
 export const deleteCartItemApi = async (user, item) => {
-  const data = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/cart/${user}-${item.id}`, {
-    method: "DELETE",
-    cache: "no-store",
-  }).catch((error) => console.log(error));
+  const data = await fetch(
+    `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/cart/${user}-${item.id}`,
+    {
+      method: "DELETE",
+      cache: "no-store",
+    }
+  ).catch((error) => console.log(error));
   return data;
 };
