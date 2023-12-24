@@ -16,7 +16,6 @@ export const getOrdersListApi = async (initialuser) => {
   return await fetch(
     `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/pedidos/${initialuser}`,
     {
-      cache: "no-store",
       // next: { validate: 1 }  
       next: { tags: ['orders'] } 
     }
@@ -51,7 +50,7 @@ export const addOrdersItemApi = async (initialuser, order) => {
     {
       method: "POST",
       cache: "no-store",
-      next: { revalidate: 1000 },
+      next: { revalidate: 2 },
       body: JSON.stringify({
         id: initialuser,
         order: order,

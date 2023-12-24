@@ -17,8 +17,7 @@ export const getCartListApi = async (initialuser) => {
   return await fetch(
     `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/cart/${initialuser}`,
     {
-      cache: "no-store",
-      next: { revalidate: 1000 },
+      next: { tags: ["cartList"] },
     }
   )
     .then((res) => res.json())
@@ -62,7 +61,7 @@ export const addCartItemApi = async (initialuser, item) => {
       method: "POST",
       cache: "no-cache",
       //next: { tags: ["1000"] },
-      next: { revalidate: 1000 },
+      next: { revalidate: 2 },
       body: JSON.stringify({
         id: initialuser,
         item: item,
@@ -153,4 +152,11 @@ export const deleteCartItemApi = async (user, item) => {
     }
   ).catch((error) => console.log(error));
   return data;
+};
+
+export const clearCartList = async (id) => {
+  const colRef = collection(db, "users");
+  const docRef = doc(colRef, id);
+  console.log('clear correct', id)
+  return await updateDoc(docRef, { cart: [] });
 };

@@ -1,6 +1,6 @@
 export const headerData = [
   {
-    name: "Home",
+    name: "Inicio",
     tabUrl: "/",
   },
   // {

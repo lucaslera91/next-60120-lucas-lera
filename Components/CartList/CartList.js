@@ -20,25 +20,58 @@ const CartList = async () => {
     status: "En preparacio",
     items: cartList?.length,
   };
-  return (
-    <div className={styles.cartContainer}>
-      <h2 className={H2_CLEAR}>Confirma tu carrito!</h2>
-      <div className={styles.titleContainer}>
-        <h2 className={H3_DARK}>Total: $ {total}</h2>
-        <p className={H4_CLEAR}>Items: {cartList?.length}</p>
-        <ConfirmButton
-          order={order}
-          initialUser={initialUser}
-          className={`${styles.confirmPurchase} rounded`}
-        />
-      </div>
 
-      <div className={styles.cartListContainer}>
-        {!cartList && <div>Loading...</div>}
-        {!!cartList && cartList.map((element) => <CartItem item={element} />)}
-      </div>
+  const noDataCart = (
+    <div>
+      <h2 className={H2_CLEAR}>No tenes items en tu carrito!</h2>
+      <p className={H4_CLEAR}>
+        Podes ir al inicio para agregar productos a tu carrito!
+      </p>
     </div>
   );
+
+  {
+   return cartList.length < 1 ? (
+      noDataCart
+    ) : (
+      <div className={styles.cartContainer}>
+        <h2 className={H2_CLEAR}>Confirma tu carrito!</h2>
+        <div className={styles.titleContainer}>
+          <h2 className={H3_DARK}>Total: $ {total}</h2>
+          <p className={H4_CLEAR}>Items: {cartList?.length}</p>
+          <ConfirmButton
+            order={order}
+            initialUser={initialUser}
+            className={`${styles.confirmPurchase} rounded`}
+          />
+        </div>
+
+        <div className={styles.cartListContainer}>
+          {!cartList && <div>Loading...</div>}
+          {!!cartList && cartList.map((element) => <CartItem item={element} />)}
+        </div>
+      </div>
+    );
+  }
+  // return (
+  //   <div className={styles.cartContainer}>
+  //     <h2 className={H2_CLEAR}>Confirma tu carrito!</h2>
+  //     <div className={styles.titleContainer}>
+  //       <h2 className={H3_DARK}>Total: $ {total}</h2>
+  //       <p className={H4_CLEAR}>Items: {cartList?.length}</p>
+  //       <ConfirmButton
+  //         order={order}
+  //         initialUser={initialUser}
+  //         className={`${styles.confirmPurchase} rounded`}
+  //       />
+  //     </div>
+
+  //     <div className={styles.cartListContainer}>
+  //       {!cartList && <div>Loading...</div>}
+  //       {!!cartList && cartList.map((element) => <CartItem item={element} />)}
+  //     </div>
+  //   </div>
+  //);
 };
 
 export default CartList;

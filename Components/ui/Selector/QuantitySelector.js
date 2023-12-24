@@ -1,15 +1,17 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./QuantitySelector.module.css";
 import Swal from "sweetalert2";
 import { updateCartItemApi } from "@/service/cartService";
 import { SIX_OR_MORE } from "@/app/utils/constants";
+import revalidate from "@/app/actions/revalidate";
 // import { revalidatePath } from "next/cache";
 
 const QuantitySelector = ({ item, initialUser }) => {
   const router = useRouter();
   const [newItem, setNewItem] = useState(item);
+  let [isPending, startTransition] = useTransition();
 
   // Array of items for the select dropdown
   const items = [1, 2, 3, 4, 5, "6 o mas"];
@@ -50,7 +52,11 @@ const QuantitySelector = ({ item, initialUser }) => {
               toast: true,
               position: "top-end",
             });
-            router.refresh();
+            //router.refresh();
+            startTransition(() => {
+              //revalidate('orders');
+              revalidate('cartList');
+            });
           })
           .catch((error) => console.log(error));
       };

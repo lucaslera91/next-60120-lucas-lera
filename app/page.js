@@ -6,7 +6,7 @@ import { footerList } from "./utils/footerUtlis";
 import { headerData } from "./utils/headerUtils";
 
 export const metadata = {
-  title: "LibraryApp - Home",
+  title: "LibraryApp - Inicio",
   description: "App de libreria",
 };
 
@@ -14,7 +14,6 @@ export default async function Home() {
 
   const productList = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/home`, {
     cache: "no-cache",
-    next: { revalidate: 60000 },
   })
     .then((res) => res.json())
     .catch((error) => console.log(error));
