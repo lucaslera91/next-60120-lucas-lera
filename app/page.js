@@ -12,6 +12,8 @@ export const metadata = {
 
 export default async function Home() {
 
+  //const isLogedIn = () => await authCheck;
+
   const productList = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/home`, {
     cache: "no-store",
   })

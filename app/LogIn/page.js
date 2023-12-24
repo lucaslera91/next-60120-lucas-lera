@@ -6,7 +6,7 @@ const LogIn = () => {
 
   return (
     <div>
-      <Form type='Log In'/>
+      <Form type='LogIn'/>
     </div>
   );
 };
