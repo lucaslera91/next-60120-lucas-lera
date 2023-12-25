@@ -19,12 +19,19 @@ const Form = ({ type }) => {
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
+
+  const handleLogIn = () => {
+    const credential = userCredential.user;
+    console.log(credential)
+    setCookie('shareAppCookie', credential?.accessToken, 1)
+    router.push("/LogIn")
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     if (type === "Register") {
       registerUser(formData.email, formData.password)
         .then((res) => {
-          res.status === 200 && router.push("/LogIn");
+          res.status === 200 && handleLogIn();
           const isEmailValid =
             res.errorMessage === EMAIL_EXISTS ||
             res.errorMessage === EMAIL_INVALID;
