@@ -2,6 +2,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ProductListAdminProvider } from "@/Contexts/ProductListAdminProvider";
 import AuthProvider from "@/Contexts/AuthProvider";
+import Loading from "./Loading";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +17,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <ProductListAdminProvider>{children}</ProductListAdminProvider>
+          <ProductListAdminProvider>
+            <Suspense fallback={<Loading />}>{children}</Suspense>
+          </ProductListAdminProvider>
         </AuthProvider>
       </body>
     </html>
