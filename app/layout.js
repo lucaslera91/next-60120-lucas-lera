@@ -4,6 +4,7 @@ import { ProductListAdminProvider } from "@/Contexts/ProductListAdminProvider";
 import AuthProvider from "@/Contexts/AuthProvider";
 import Loading from "./Loading";
 import { Suspense } from "react";
+import ProtectedRoute from "@/Components/ProtectedRoute/ProtectedRoute";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,10 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <AuthProvider>
           <ProductListAdminProvider>
-            <Suspense fallback={<Loading />}>{children}</Suspense>
+            <Suspense fallback={<Loading />}>
+              {/* <ProtectedRoute /> */}
+              {children}
+            </Suspense>
           </ProductListAdminProvider>
         </AuthProvider>
       </body>

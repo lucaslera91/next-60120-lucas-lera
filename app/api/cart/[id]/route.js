@@ -8,8 +8,12 @@ import {
 
 export const GET = async (_, { params }) => {
   const { id } = params;
-  const data = await getCartListservice(id);
-  return NextResponse.json(data?.cart);
+  try {
+    const data = await getCartListservice(id);
+    return NextResponse.json(data?.cart);
+  } catch (error) {
+    return NextResponse.json({ status: 500 });
+  }
 };
 
 export const POST = async (req) => {

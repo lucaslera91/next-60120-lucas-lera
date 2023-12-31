@@ -5,8 +5,7 @@ import CartList from '../../Components/CartList/CartList';
 const Carrito = () => {
   return (
     <>
-    <ProtectedRoute />
-    <CartList />
+      <CartList />
     </>
   )
 }

@@ -4,11 +4,12 @@ import { EMAIL_EXISTS, EMAIL_INVALID } from "@/app/utils/constants";
 import { useAuthContext } from "@/Contexts/AuthProvider";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { getAdminListService } from "@/service/authServices";
 
 const Form = ({ type }) => {
   const error = "error msg";
   const router = useRouter();
-  const { registerUser, logIn, } = useAuthContext() || {};
+  const { registerUser, logIn, setUser } = useAuthContext() || {};
 
   // const [error, setError] = useState()
   const [formData, setFormData] = useState({
@@ -22,11 +23,11 @@ const Form = ({ type }) => {
 
   const handleLogIn = () => {
     const credential = userCredential.user;
-    console.log(credential)
-    setCookie('shareAppCookie', credential?.accessToken, 1)
-    router.push("/LogIn")
-  }
-  const handleSubmit = (e) => {
+    console.log(credential);
+    setCookie("shareAppCookie", credential?.accessToken, 1);
+    router.push("/LogIn");
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (type === "Register") {
       registerUser(formData.email, formData.password)
@@ -48,13 +49,27 @@ const Form = ({ type }) => {
           console.log("error", error);
         });
     } else {
-      logIn(formData.email, formData.password).then((res) => {
-          console.log('eixit0', res)
-        router.push("/")
-      });
+      const isLogIn = await logIn(formData.email, formData.password);
+      if (isLogIn?.status === 500) {
+        setFormData({
+          ...formData,
+          error: {
+            status: true,
+            message: "Por favor validar correo y contraseña",
+          },
+        });
+      } else {
+        //check if admin
+        console.log("is log in", isLogIn);
+        const isAdmin = await getAdminListService(isLogIn?.uid);
+        console.log(isAdmin?.role ? true : false);
+        setUser({ isAdmin: isAdmin?.role ? true : false, isLoggedIn: true });
+        //here i should set cookie if necesaryy
+        router.push("/");
+      }
+      //submit to log in if log in
+      //submit to register if register
     }
-    //submit to log in if log in
-    //submit to register if register
   };
 
   return (
@@ -102,7 +117,7 @@ const Form = ({ type }) => {
             className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
             onClick={handleSubmit}
           >
-            {type === 'Register' ? 'Crear nuevo usuario' : 'Log in'}
+            {type === "Register" ? "Crear nuevo usuario" : "Log in"}
           </button>
           {type !== "Register" && (
             <button

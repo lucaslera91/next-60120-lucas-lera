@@ -1,9 +1,10 @@
+import ProtectedAdmin from "@/Components/ProtectedRoute/ProtectedAdmin";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import LogOutButton from "../Button/LogOutButton";
 
-const MenuList = ({ data }) => {
+const MenuList = async ({ data }) => {
   return (
     <div>
       <div className="flex-container flex items-center justify-between p-4 bg-blue-500">
@@ -23,11 +24,21 @@ const MenuList = ({ data }) => {
 
         {/* Navigation Links */}
         <div className="flex items-center space-x-4">
-          {data.map((item) => (
-            <Link href={item.tabUrl}>
-              <div className="text-white hover:text-gray-300">{item.name}</div>
+          {data.map(
+            (item) =>
+              item.name !== "Admin" && (
+                <Link href={item.tabUrl}>
+                  <div className="text-white hover:text-gray-300">
+                    {item.name}
+                  </div>
+                </Link>
+              )
+          )}
+          <ProtectedAdmin>
+            <Link href={"/Admin"}>
+              <div className="text-white hover:text-gray-300">Admin</div>
             </Link>
-          ))}
+          </ProtectedAdmin>
           <LogOutButton />
         </div>
       </div>

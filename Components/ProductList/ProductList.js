@@ -1,14 +1,14 @@
-import productList from '@/data/productList'
-import React from 'react'
-import ProductCard from '../ProductCard/ProductCard'
+import productList from "@/data/productList";
+import React from "react";
+import ProductCard from "../ProductCard/ProductCard";
 
-const ProductList = ({products}) => {
-
+const ProductList = ({ productList = [] }) => {
   return (
-    <div className='display flex w-100 overflow-hidden flex-wrap justify-center'>
-        {!!products && products.map(element => <ProductCard item={element}/>)}
+    <div className="display flex w-100 overflow-hidden flex-wrap justify-center">
+      {productList?.length > 0 &&
+        productList?.map((element) => <ProductCard item={element} />)}
     </div>
-  )
-}
+  );
+};
 
-export default ProductList
+export default ProductList;

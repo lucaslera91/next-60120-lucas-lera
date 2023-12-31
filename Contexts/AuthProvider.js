@@ -13,31 +13,44 @@ import { useRouter } from "next/navigation";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  //   const [user, setUser] = useState({
+  //     isAdmin: false,
+  //     user,
+  //   });
   const [user, setUser] = useState({
-    logged: false,
-    email: null,
-    userName: null,
-  });
+    isAdmin : false,
+    isLoggedIn : false,
+  })
   const router = useRouter();
   const logIn = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
-        console.log(user);
+        console.log('its being successfull.. ')
+        return userCredential.user;
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log("this is an error");
+        console.log('message', errorMessage)
+        return { status: 500 };
       });
+  };
+
+  const isUserAdmin = () => {
+    const userAuth = getAuth();
+    console.log(userAuth);
+
+    return true;
   };
 
   const logOut = async () => {
     return signOut(auth)
       .then((res) => {
         console.log("sign out succesfull", res);
-        router.push('/LogIn')
+        router.push("/LogIn");
         // Sign-out successful.
       })
       .catch((error) => {
@@ -61,9 +74,6 @@ export const AuthProvider = ({ children }) => {
       });
   };
   const authCheck = async () => {
-    const userAuth = getAuth();
-    console.log(userAuth);
-
     return onAuthStateChanged(auth, (user) => {
       console.log(user);
       if (user) {
@@ -76,7 +86,7 @@ export const AuthProvider = ({ children }) => {
         // ...
       } else {
         console.log("user signed out");
-        router.push('/LogIn')
+        router.push("/LogIn");
         // User is signed out
         // ...
       }
@@ -91,6 +101,8 @@ export const AuthProvider = ({ children }) => {
         registerUser,
         authCheck,
         user,
+        setUser,
+        isUserAdmin,
         // setCartList
       }}
     >

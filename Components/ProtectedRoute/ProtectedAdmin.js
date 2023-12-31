@@ -3,20 +3,15 @@ import { useAuthContext } from "@/Contexts/AuthProvider";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
-const ProtectedRoute = ({ children }) => {
-  const router = useRouter()
+const ProtectedAdmin = ({ children }) => {
+  const router = useRouter();
   const { user } = useAuthContext();
 
-  useEffect(() => {
-    if (user?.isLoggedIn) {
-      if (user?.isAdmin) {
-        return { children };
-      }
-      console.log("logged in");
-    } else {
-      router.push('/Login')
-    }
-  }, []);
+  // useEffect(() => {
+  //   console.log('user', user)
+  //   !user?.isAdmin && router.push('/')
+  //   !user?.isLoggedIn && router.push("/LogIn");
+  // }, []);
   //   const handleAuthcheck = async () => {
   //     //const token = await authenticate();
   //     useEffect(() => {
@@ -30,7 +25,7 @@ const ProtectedRoute = ({ children }) => {
   //     }
   //   }, [user, router]);
 
-  return <></>; // Render the children only if authenticated
+  return user?.isAdmin ? <>{children}</> : <></>;
 };
 
-export default ProtectedRoute;
+export default ProtectedAdmin;

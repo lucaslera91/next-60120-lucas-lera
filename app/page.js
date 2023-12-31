@@ -1,7 +1,9 @@
+import { getProductsListApi } from "@/service/productService";
 import { Suspense } from "react";
 import ProductList from "../Components/ProductList/ProductList";
 import Footer from "../Components/ui/Footer/Footer";
 import Header from "../Components/ui/Header/Header";
+import Loading from "./Loading";
 import { footerList } from "./utils/footerUtlis";
 import { headerData } from "./utils/headerUtils";
 
@@ -11,13 +13,8 @@ export const metadata = {
 };
 
 export default async function Home() {
-
   //const isLogedIn = () => await authCheck;
-
-  const productList = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/home`, {
-    cache: "no-store",
-  })
-    .then((res) => res.json())
+  const productList = await getProductsListApi()
     .catch((error) => console.log(error));
 
   return (
@@ -25,9 +22,9 @@ export default async function Home() {
       <Header data={headerData} />
       <div className="p-2">
         <h2 className="text-3xl pb-4">Que producto te gusta?!</h2>
-        {/* <Suspense fallback={<div>Cargando...</div>}> */}
-        {productList && <ProductList products={productList} />}
-        {/* </Suspense> */}
+        <Suspense fallback={<Loading />}>
+          <ProductList productList={productList} />
+        </Suspense>
         <Footer data={footerList} />
       </div>
     </main>

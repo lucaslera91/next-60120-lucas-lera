@@ -9,6 +9,7 @@ import styles from "./CartList.module.css";
 
 const CartList = async () => {
   const initialUser = "user-name-random1";
+console.log('initial user', initialUser)
   const cartList = await getCartListApi(initialUser);
   const total = cartList?.reduce((accumulator, currentObject) => {
     return accumulator + currentObject.price * currentObject.amount;
@@ -29,30 +30,29 @@ const CartList = async () => {
       </p>
     </div>
   );
+  console.log('cart list', cartList);
 
-  {
-   return cartList.length < 1 ? (
-      noDataCart
-    ) : (
-      <div className={styles.cartContainer}>
-        <h2 className={H2_CLEAR}>Confirma tu carrito!</h2>
-        <div className={styles.titleContainer}>
-          <h2 className={H3_DARK}>Total: $ {total}</h2>
-          <p className={H4_CLEAR}>Items: {cartList?.length}</p>
-          <ConfirmButton
-            order={order}
-            initialUser={initialUser}
-            className={`${styles.confirmPurchase} rounded`}
-          />
-        </div>
-
-        <div className={styles.cartListContainer}>
-          {!cartList && <div>Loading...</div>}
-          {!!cartList && cartList.map((element) => <CartItem item={element} />)}
-        </div>
+  return cartList.length < 1 ? (
+    noDataCart
+  ) : (
+    <div className={styles.cartContainer}>
+      <h2 className={H2_CLEAR}>Confirma tu carrito!</h2>
+      <div className={styles.titleContainer}>
+        <h2 className={H3_DARK}>Total: $ {total}</h2>
+        <p className={H4_CLEAR}>Items: {cartList?.length}</p>
+        <ConfirmButton
+          order={order}
+          initialUser={initialUser}
+          className={`${styles.confirmPurchase} rounded`}
+        />
       </div>
-    );
-  }
+
+      <div className={styles.cartListContainer}>
+        {cartList?.map((element) => <CartItem item={element} />)}
+      </div>
+    </div>
+  );
+
   // return (
   //   <div className={styles.cartContainer}>
   //     <h2 className={H2_CLEAR}>Confirma tu carrito!</h2>
