@@ -2,18 +2,21 @@
 import React, { useState } from "react";
 import AddToCartButton from "../../Button/AddToCartButton";
 import OperationButton from "../../Button/OperationButton";
-import styles from './CardButton.module.css'
+import styles from "./CardButton.module.css";
 import Swal from "sweetalert2";
+import { createDocument, getCookie } from "@/app/utils/utils";
 
-const CardButton = ({ item, user, bg = "dark" }) => {
+const CardButton = ({ item, bg = "dark" }) => {
   const [amount, setAmount] = useState(0);
+  const uid = getCookie("libreriaAppCookie");
+  console.log('cookie uid', uid)
   //console.log('car item', item)
   const buttonHandler = {
     substract: () => setAmount((prev) => prev - 1),
     add: () => setAmount((prev) => prev + 1),
   };
   const handleClick = (operation) => {
-    if ((amount === item?.stock)) {
+    if (amount === item?.stock) {
       Swal.fire({
         title: "Has llegado al limite!",
         text: "Te encuentras en el limite de stock disponible",
@@ -27,7 +30,9 @@ const CardButton = ({ item, user, bg = "dark" }) => {
     }
   };
 
-  const handleAlert = () => {
+  const handleAlert = async () => {
+    console.log('excecute')
+    createDocument(uid);
     Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -51,7 +56,7 @@ const CardButton = ({ item, user, bg = "dark" }) => {
       <AddToCartButton
         disabled={amount < 1}
         item={item}
-        user={user}
+        user={uid}
         amount={amount}
         setAmount={setAmount}
         styles={styles}

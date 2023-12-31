@@ -5,6 +5,7 @@ import { useAuthContext } from "@/Contexts/AuthProvider";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getAdminListService } from "@/service/authServices";
+import { createDocument } from "@/app/utils/utils";
 
 const Form = ({ type }) => {
   const error = "error msg";
@@ -21,16 +22,17 @@ const Form = ({ type }) => {
     setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const handleLogIn = () => {
-    const credential = userCredential.user;
-    console.log(credential);
+  const handleLogIn = (res) => {
+    console.log('register res', res.id)
+    createDocument(res.id)
   };
   const handleSubmit = async (e) => {
+    console.log('heck this doesnt work')
     e.preventDefault();
     if (type === "Register") {
       registerUser(formData.email, formData.password)
         .then((res) => {
-          res.status === 200 && handleLogIn();
+          res.status === 200 && handleLogIn(res);
           const isEmailValid =
             res.errorMessage === EMAIL_EXISTS ||
             res.errorMessage === EMAIL_INVALID;

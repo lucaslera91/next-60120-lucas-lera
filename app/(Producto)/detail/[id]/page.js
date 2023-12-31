@@ -22,7 +22,6 @@ const Detail = async ({ params }) => {
     cache: "no-cache",
     // next: { revalidate: 60000 },
   }).then((res) => res.json());
-  console.log('productos', product)
 
   return (
     // <div className="flex flex-col bg-black-400 full-screen p-s">

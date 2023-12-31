@@ -1,4 +1,5 @@
-
+import { db } from "@/service/firebaseConfig";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
 export const findItem = (list, find) =>
   list.filter((item) => item.slug === find);
@@ -42,7 +43,9 @@ export function getCookie(name) {
 }
 
 export function deleteCookie(name) {
-  document.cookie = `${encodeURIComponent(name)}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+  document.cookie = `${encodeURIComponent(
+    name
+  )}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
 }
 
 export const authenticate = () => {
@@ -54,4 +57,24 @@ export const authenticate = () => {
       rej(error);
     }
   });
+};
+
+export const createDocument = async (docId) => {
+  const myCollection = collection(db, "users");
+  try {
+    // Add a new document to the collection
+    const newDocRef = doc(myCollection, docId);
+    await setDoc(
+      newDocRef,
+      {
+        cart: [],
+        orders: [],
+      },
+    );
+
+    console.log("Document added with ID:", newDocRef.id);
+    return { status: 200 };
+  } catch (error) {
+    console.error("Error adding document:", error.message);
+  }
 };

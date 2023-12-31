@@ -62,11 +62,13 @@ export const AuthProvider = ({ children }) => {
       });
   };
   const registerUser = async (email, password) => {
+    console.log('regeister')
     return await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed up
-        const user = userCredential.user;
-        return { status: 200 };
+        const user = userCredential.user.uid;
+        console.log(user)
+        return { status: 200, id: user };
         // ...
       })
       .catch((error) => {

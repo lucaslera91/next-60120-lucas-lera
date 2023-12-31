@@ -17,14 +17,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          <ProductListAdminProvider>
-            <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loading />}>
+          <AuthProvider>
+            <ProductListAdminProvider>
               {/* <ProtectedRoute /> */}
               {children}
-            </Suspense>
-          </ProductListAdminProvider>
-        </AuthProvider>
+            </ProductListAdminProvider>
+          </AuthProvider>
+        </Suspense>
       </body>
     </html>
   );
