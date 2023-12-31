@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import React, { createContext, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
+import { deleteCookie, getCookie, setCookie } from "@/app/utils/utils";
 
 const AuthContext = createContext();
 
@@ -17,24 +18,25 @@ export const AuthProvider = ({ children }) => {
   //     isAdmin: false,
   //     user,
   //   });
+
   const [user, setUser] = useState({
-    isAdmin : false,
-    isLoggedIn : false,
-  })
+    isAdmin: false,
+    isLoggedIn: false,
+  });
   const router = useRouter();
+
   const logIn = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        console.log('its being successfull.. ')
+        console.log("its being successfull.. ");
+
+        setCookie("libreriaAppCookie", userCredential.user.uid, 1);
+        //set cookie
         return userCredential.user;
         // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("this is an error");
-        console.log('message', errorMessage)
         return { status: 500 };
       });
   };
@@ -50,6 +52,7 @@ export const AuthProvider = ({ children }) => {
     return signOut(auth)
       .then((res) => {
         console.log("sign out succesfull", res);
+        deleteCookie("libreriaAppCookie");
         router.push("/LogIn");
         // Sign-out successful.
       })
@@ -75,14 +78,13 @@ export const AuthProvider = ({ children }) => {
   };
   const authCheck = async () => {
     return onAuthStateChanged(auth, (user) => {
-      console.log(user);
       if (user) {
         console.log("signed in", user);
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
         console.log("user uid", uid);
-
+        return true;
         // ...
       } else {
         console.log("user signed out");

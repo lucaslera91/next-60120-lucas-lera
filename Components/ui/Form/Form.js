@@ -24,8 +24,6 @@ const Form = ({ type }) => {
   const handleLogIn = () => {
     const credential = userCredential.user;
     console.log(credential);
-    setCookie("shareAppCookie", credential?.accessToken, 1);
-    router.push("/LogIn");
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,7 +58,6 @@ const Form = ({ type }) => {
         });
       } else {
         //check if admin
-        console.log("is log in", isLogIn);
         const isAdmin = await getAdminListService(isLogIn?.uid);
         console.log(isAdmin?.role ? true : false);
         setUser({ isAdmin: isAdmin?.role ? true : false, isLoggedIn: true });

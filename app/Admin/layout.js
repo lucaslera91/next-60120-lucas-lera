@@ -16,8 +16,9 @@ import ProtectedAdmin from "@/Components/ProtectedRoute/ProtectedAdmin";
 import { useAuthContext } from "@/Contexts/AuthProvider";
 
 const AdminLayout = async ({ children, login }) => {
-  const { user } = useAuthContext();
-  return <div>{user?.isLoggedIn ? children : login }</div>;
+  const { authCheck } = useAuthContext();
+  const isLoggedIn = authCheck();
+  return <div>{isLoggedIn ? children : login}</div>;
 };
 
 export default AdminLayout;

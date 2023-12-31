@@ -1,10 +1,14 @@
+"use client";
 import ProtectedAdmin from "@/Components/ProtectedRoute/ProtectedAdmin";
+import { useAuthContext } from "@/Contexts/AuthProvider";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import LogOutButton from "../Button/LogOutButton";
 
-const MenuList = async ({ data }) => {
+const MenuList = ({ data }) => {
+  const { authCheck } = useAuthContext();
+  const isLoggedIn = authCheck();
   return (
     <div>
       <div className="flex-container flex items-center justify-between p-4 bg-blue-500">
@@ -24,15 +28,19 @@ const MenuList = async ({ data }) => {
 
         {/* Navigation Links */}
         <div className="flex items-center space-x-4">
-          {data.map(
-            (item) =>
-              item.name !== "Admin" && (
-                <Link href={item.tabUrl}>
-                  <div className="text-white hover:text-gray-300">
-                    {item.name}
-                  </div>
-                </Link>
-              )
+          {isLoggedIn ? (
+            data.map(
+              (item) =>
+                item.name !== "Admin" && (
+                  <Link href={item.tabUrl}>
+                    <div className="text-white hover:text-gray-300">
+                      {item.name}
+                    </div>
+                  </Link>
+                )
+            )
+          ) : (
+            <button>Log in</button>
           )}
           <ProtectedAdmin>
             <Link href={"/Admin"}>
