@@ -8,7 +8,8 @@ import { SIX_OR_MORE } from "@/app/utils/constants";
 import revalidate from "@/app/actions/revalidate";
 // import { revalidatePath } from "next/cache";
 
-const QuantitySelector = ({ item, initialUser }) => {
+const QuantitySelector = ({ item }) => {
+  const uid = getCookie("libreriaAppCookie");
   const router = useRouter();
   const [newItem, setNewItem] = useState(item);
   let [isPending, startTransition] = useTransition();
@@ -42,7 +43,7 @@ const QuantitySelector = ({ item, initialUser }) => {
     console.log(Object.keys(newItem).length !== 0);
     if (Object.keys(newItem).length !== 0 && item.amount !== newItem.amount) {
       const update = async () => {
-        updateCartItemApi(initialUser, newItem)
+        updateCartItemApi(uid, newItem)
           .then((res) => {
             Swal.fire({
               title: "Genial!",

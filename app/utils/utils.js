@@ -1,4 +1,5 @@
-import { db } from "@/service/firebaseConfig";
+import { auth, db } from "@/service/firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
 export const findItem = (list, find) =>
@@ -77,4 +78,25 @@ export const createDocument = async (docId) => {
   } catch (error) {
     console.error("Error adding document:", error.message);
   }
+};
+
+export const authCheckServerSide = async () => {
+  console.log('checking')
+  console.log('authhhhhhhhhh', auth)
+  return onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("signed in", user);
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      const uid = user.uid;
+      console.log("user uid", uid);
+      return uid;
+      // ...
+    } else {
+      console.log("user signed out");
+      return false
+      // User is signed out
+      // ...
+    }
+  });
 };

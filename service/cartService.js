@@ -1,12 +1,17 @@
 import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../service/firebaseConfig";
 import Swal from "sweetalert2";
+import { authCheckServerSide } from "@/app/utils/utils";
 
 //GET CART
 
 //Firebase service
-export const getCartListservice = async (id) => {
+export const getCartListservice = async () => {
   const colRef = collection(db, "users");
+
+  //can i use auth here?
+  const id = authCheckServerSide();
+  console.log('this is sent at lease', authCheckServerSide)
   const docRef = doc(colRef, id);
   return await getDoc(docRef).then((doc) => doc.data());
 };
@@ -102,8 +107,6 @@ export const addCartItemApi = async (initialuser, item) => {
 // delete item
 
 export const updateCartItemService = async (id, item) => {
-  console.log("item updated", item);
-  console.log("id updated", item);
   const colRef = collection(db, "users");
   const docRef = doc(colRef, id);
   const data = await getCartListservice(id);
@@ -111,7 +114,6 @@ export const updateCartItemService = async (id, item) => {
   let newList = data.cart;
   const indexOfItem = newList.findIndex((element) => element.id === item.id);
   newList[indexOfItem].amount = item.amount;
-  console.log(newList);
   return await updateDoc(docRef, { cart: newList });
 };
 
@@ -157,6 +159,5 @@ export const deleteCartItemApi = async (user, item) => {
 export const clearCartList = async (id) => {
   const colRef = collection(db, "users");
   const docRef = doc(colRef, id);
-  console.log('clear correct', id)
   return await updateDoc(docRef, { cart: [] });
 };

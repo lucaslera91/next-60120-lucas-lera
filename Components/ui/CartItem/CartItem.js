@@ -8,7 +8,6 @@ import styles from "./CartItem.module.css";
 
 const CartItem = ({ item, revalidate }) => {
   const { title, description, price, imageUrl } = item || {};
-  const initialUser = "user-name-random1";
 
   return (
     <div className={`${styles.cartItemContainer} rounded`}>
@@ -24,7 +23,7 @@ const CartItem = ({ item, revalidate }) => {
       </div>
       <div className={styles.cartEditItem}>
         <h4 className={H4_CLEAR}>{item.amount}</h4>
-        <QuantitySelector item={item} initialUser={initialUser} />
+        <QuantitySelector item={item} />
       </div>
       <DeleteButton user={initialUser} item={item} />
     </div>

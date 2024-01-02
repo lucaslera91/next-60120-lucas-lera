@@ -8,9 +8,8 @@ import CartItem from "../ui/CartItem/CartItem";
 import styles from "./CartList.module.css";
 
 const CartList = async () => {
-  const initialUser = "user-name-random1";
-console.log('initial user', initialUser)
-  const cartList = await getCartListApi(initialUser);
+  //const initialUser = "user-name-random1";
+  const cartList = await getCartListApi();
   const total = cartList?.reduce((accumulator, currentObject) => {
     return accumulator + currentObject.price * currentObject.amount;
   }, 0);
@@ -42,7 +41,7 @@ console.log('initial user', initialUser)
         <p className={H4_CLEAR}>Items: {cartList?.length}</p>
         <ConfirmButton
           order={order}
-          initialUser={initialUser}
+          initialUser={uid}
           className={`${styles.confirmPurchase} rounded`}
         />
       </div>

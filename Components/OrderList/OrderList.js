@@ -4,7 +4,8 @@ import OrderItem from "../ui/OrderItem/OrderItem";
 
 const OrderList = async () => {
   const initialUser = "user-name-random1";
-  const ordersList = await getOrdersListApi(initialUser);
+  const uid = getCookie("libreriaAppCookie");
+  const ordersList = await getOrdersListApi(uid);
 
   return (
     <div className={`max-w-2xl mx-auto bg-white shadow-md rounded my-8`}>

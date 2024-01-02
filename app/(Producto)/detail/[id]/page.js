@@ -16,7 +16,7 @@ export const generateMetadata = async ({ params }) => {
 };
 const Detail = async ({ params }) => {
   const { id } = params;
-  const initialUser = "user-name-random1";
+  // const initialUser = "user-name-random1";
 
   const product = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/detail/${id}`, {
     cache: "no-cache",
@@ -43,8 +43,8 @@ const Detail = async ({ params }) => {
             ${product?.price}
           </h3>
         </div>
-        <CardButton item={product} user={initialUser} bg='clear' />
-
+        {/* <CardButton item={product} user={initialUser} bg='clear' /> */}
+        <CardButton item={product} bg='clear' />
       </div>
     </div>
   );

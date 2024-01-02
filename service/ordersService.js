@@ -1,6 +1,7 @@
 import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../service/firebaseConfig";
 import Swal from "sweetalert2";
+import { authCheckServerSide } from "@/app/utils/utils";
 
 //GET CART
 
@@ -16,8 +17,8 @@ export const getOrdersListApi = async (initialuser) => {
   return await fetch(
     `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/pedidos/${initialuser}`,
     {
-      // next: { validate: 1 }  
-      next: { tags: ['orders'] } 
+      // next: { validate: 1 }
+      next: { tags: ["orders"] },
     }
   )
     .then((res) => res.json())
@@ -33,8 +34,11 @@ export const getOrdersListApi = async (initialuser) => {
 
 //POST - Add Order
 
-export const addOrdersItemService = async (id, order) => {
+export const addOrdersItemService = async ( order) => {
   const colRef = collection(db, "users");
+  const id = await authCheckServerSide();
+  console.log(id)
+
   const docRef = doc(colRef, id);
   const data = await getOrdersListservice(id);
   const newList = data.orders;

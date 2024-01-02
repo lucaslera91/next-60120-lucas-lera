@@ -6,7 +6,6 @@ import { H2_CLEAR } from "@/app/utils/constants";
 
 const Card = ({ children, item }) => {
   const { title, description, imageUrl, price, stock, id} = item || {};
-  console.log('item', item)
   const initialUser = "user-name-random1";
   const maxDescriptionLength = 30;
   return (
@@ -29,7 +28,7 @@ const Card = ({ children, item }) => {
       </Link>
       <h2 className={H2_CLEAR}>$ {price}</h2>
       {/* <h4 className={H4_CLEAR}>{stock}</h4> */}
-      <CardButton styles={styles} item={item} user={initialUser}/>
+      <CardButton styles={styles} item={item} />
       {children}
     </div>
   );
