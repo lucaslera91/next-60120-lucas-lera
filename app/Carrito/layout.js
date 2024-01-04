@@ -7,7 +7,6 @@ import Header from "../../Components/ui/Header/Header";
 import Loading from "../Loading";
 import { footerList } from "../utils/footerUtlis";
 import { headerData } from "../utils/headerUtils";
-import { getCookie } from "../utils/utils";
 
 // export const metadata = {
 //   title: "LibraryApp - Carrito",
@@ -16,9 +15,9 @@ import { getCookie } from "../utils/utils";
 
 const CarritoLayout = ({ children, login }) => {
   //console.log('cookie', user)
-  const { authCheck } = useAuthContext();
-  const isLoggedIn = authCheck();
-  console.log('is log in', isLoggedIn)
+  //const { authCheck } = useAuthContext();
+  const isLoggedIn = true;
+  console.log("is log in", isLoggedIn);
 
   return (
     <>
@@ -26,7 +25,7 @@ const CarritoLayout = ({ children, login }) => {
         <div className="p-2">
           <Header data={headerData} />
           <div className="p-2">
-            <Suspense fallback={<Loading />}>{children}</Suspense>
+            {children}
             <Footer data={footerList} />
           </div>
         </div>

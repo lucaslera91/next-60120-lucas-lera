@@ -6,10 +6,15 @@ import Swal from "sweetalert2";
 import { updateCartItemApi } from "@/service/cartService";
 import { SIX_OR_MORE } from "@/app/utils/constants";
 import revalidate from "@/app/actions/revalidate";
+import { useAuthContext } from "@/Contexts/AuthProvider";
+import { useCartContext } from "@/Contexts/CartProvider";
 // import { revalidatePath } from "next/cache";
 
 const QuantitySelector = ({ item }) => {
-  const uid = getCookie("libreriaAppCookie");
+  //const uid = getCookie("libreriaAppCookie");
+  const { authCheck } = useAuthContext();
+  const { editCart } = useCartContext();
+  //const uid = authCheck();
   const router = useRouter();
   const [newItem, setNewItem] = useState(item);
   let [isPending, startTransition] = useTransition();
@@ -32,7 +37,7 @@ const QuantitySelector = ({ item }) => {
       //   },
       //   inputValue: item.amount,
       // });
-      const value = 3
+      const value = 3;
       setNewItem({ ...item, amount: value });
     } else {
       setNewItem({ ...item, amount: targetValue });
@@ -43,7 +48,7 @@ const QuantitySelector = ({ item }) => {
     console.log(Object.keys(newItem).length !== 0);
     if (Object.keys(newItem).length !== 0 && item.amount !== newItem.amount) {
       const update = async () => {
-        updateCartItemApi(uid, newItem)
+        editCart(newItem)
           .then((res) => {
             Swal.fire({
               title: "Genial!",
@@ -54,10 +59,10 @@ const QuantitySelector = ({ item }) => {
               position: "top-end",
             });
             //router.refresh();
-            startTransition(() => {
-              //revalidate('orders');
-              revalidate('cartList');
-            });
+            // startTransition(() => {
+            //   //revalidate('orders');
+            //   revalidate("cartList");
+            // });
           })
           .catch((error) => console.log(error));
       };
@@ -70,7 +75,7 @@ const QuantitySelector = ({ item }) => {
     <div className={styles.selectorContainer}>
       <select
         id="selectItem"
-        value={newItem.amount > 6 ? '6 o mas' : newItem.amount}
+        value={newItem.amount > 6 ? "6 o mas" : newItem.amount}
         onChange={handleSelectChange}
       >
         <option value="un."></option>

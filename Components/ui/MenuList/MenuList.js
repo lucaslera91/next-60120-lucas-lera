@@ -8,7 +8,7 @@ import LogOutButton from "../Button/LogOutButton";
 
 const MenuList = ({ data }) => {
   const { authCheck } = useAuthContext();
-  const isLoggedIn = authCheck();
+  const isLoggedIn = true;
   return (
     <div>
       <div className="flex-container flex items-center justify-between p-4 bg-blue-500">
@@ -28,25 +28,21 @@ const MenuList = ({ data }) => {
 
         {/* Navigation Links */}
         <div className="flex items-center space-x-4">
-          {isLoggedIn ? (
-            data.map(
-              (item) =>
-                item.name !== "Admin" && (
-                  <Link href={item.tabUrl}>
-                    <div className="text-white hover:text-gray-300">
-                      {item.name}
-                    </div>
-                  </Link>
-                )
-            )
-          ) : (
-            <button>Log in</button>
+          {data.map(
+            (item, idx) =>
+              item.name !== "Admin" && (
+                <Link key={idx} href={item.tabUrl}>
+                  <div className="text-white hover:text-gray-300">
+                    {item.name}
+                  </div>
+                </Link>
+              )
           )}
-          <ProtectedAdmin>
+          {/* <ProtectedAdmin> */}
             <Link href={"/Admin"}>
               <div className="text-white hover:text-gray-300">Admin</div>
             </Link>
-          </ProtectedAdmin>
+          {/* </ProtectedAdmin> */}
           <LogOutButton />
         </div>
       </div>

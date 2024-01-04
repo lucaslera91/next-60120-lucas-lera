@@ -2,18 +2,23 @@
 import productList from "@/data/productList";
 import React, { useState, useEffect } from "react";
 import AdminItem from "../ui/AdminItem/AdminItem";
-import { useProductListAdminContext } from "@/Contexts/ProductListAdminProvider";
+import {} from "@/Contexts/ProductListAdminProvider";
+import { useAdminContext } from "@/Contexts/AdminProvider";
+import { getAdminListApi } from "@/service/authServices";
+import Spinner from "../ui/Spinner/Spinner";
 
-const AdminList = async () => {
-  const { getList } = useProductListAdminContext();
-
-  const products = await getList();
+const AdminList = () => {
+  const { adminList, getAdminList } = useAdminContext();
+  useEffect(() => {
+    getAdminList();
+  }, []);
 
   return (
     <div>
-      {products.length > 0 &&
-        products.map((element) => (
-          <AdminItem key={element.id} item={element} />
+      {adminList.length < 1 && <Spinner/>}
+      {adminList.length > 0 &&
+        adminList.map((element, idx) => (
+          <AdminItem key={idx} item={element} />
         ))}
     </div>
   );

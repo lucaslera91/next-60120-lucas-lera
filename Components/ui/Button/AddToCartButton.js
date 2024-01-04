@@ -1,3 +1,5 @@
+"use client";
+import { useCartContext } from "@/Contexts/CartProvider";
 import { addCartItemApi, addCartItemService } from "@/service/cartService";
 import React from "react";
 
@@ -9,15 +11,13 @@ const AddToCartButton = ({
   styles,
   setAmount,
 }) => {
-  //console.log('test-', item)
-  const handleAddToCart = async () => {
+  const { addToCartItem } = useCartContext();
+  const handleAddToCart = () => {
     const newItem = { ...item, amount: amount };
-    //addCartItemService(user, newItem);
-    addCartItemApi(user, newItem)
-      .then(() => {
-        setAmount(0);
-      })
-      .catch((error) => console.log(error));
+    addToCartItem(newItem).then(() => {
+      setAmount(0);
+    });
+    //   .catch((error) => console.log(error));
   };
   return (
     <button

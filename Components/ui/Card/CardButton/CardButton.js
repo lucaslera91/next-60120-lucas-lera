@@ -5,10 +5,13 @@ import OperationButton from "../../Button/OperationButton";
 import styles from "./CardButton.module.css";
 import Swal from "sweetalert2";
 import { createDocument, getCookie } from "@/app/utils/utils";
+import { useAuthContext } from "@/Contexts/AuthProvider";
 
 const CardButton = ({ item, bg = "dark" }) => {
   const [amount, setAmount] = useState(0);
-  const uid = getCookie("libreriaAppCookie");
+  const { authCheck } = useAuthContext();
+  //const uid = authCheck();
+  const uid = '234'
   console.log('cookie uid', uid)
   //console.log('car item', item)
   const buttonHandler = {

@@ -5,6 +5,9 @@ import AuthProvider from "@/Contexts/AuthProvider";
 import Loading from "./Loading";
 import { Suspense } from "react";
 import ProtectedRoute from "@/Components/ProtectedRoute/ProtectedRoute";
+import { CartProvider } from "@/Contexts/CartProvider";
+import { OrdersProvider } from "@/Contexts/OrdersProvider";
+import { AdminProvider } from "@/Contexts/AdminProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +22,16 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <Suspense fallback={<Loading />}>
           <AuthProvider>
-            <ProductListAdminProvider>
-              {/* <ProtectedRoute /> */}
-              {children}
-            </ProductListAdminProvider>
+            <OrdersProvider>
+              <CartProvider>
+                <AdminProvider>
+                  <ProductListAdminProvider>
+                    {/* <ProtectedRoute /> */}
+                    {children}
+                  </ProductListAdminProvider>
+                </AdminProvider>
+              </CartProvider>
+            </OrdersProvider>
           </AuthProvider>
         </Suspense>
       </body>

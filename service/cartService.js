@@ -10,9 +10,9 @@ export const getCartListservice = async () => {
   const colRef = collection(db, "users");
 
   //can i use auth here?
-  const id = authCheckServerSide();
-  console.log('this is sent at lease', authCheckServerSide)
-  const docRef = doc(colRef, id);
+  //const id = authCheckServerSide();
+  //console.log('this is sent at lease', authCheckServerSide)
+  //const docRef = doc(colRef, id);
   return await getDoc(docRef).then((doc) => doc.data());
 };
 
@@ -141,7 +141,12 @@ export const deleteCartItemService = async (id, itemId) => {
   //console.log(data.cart);
   const newList = data.cart.filter((element) => element.id !== itemId);
   //console.log(newList);
-  return await updateDoc(docRef, { cart: newList });
+  try {
+    await updateDoc(docRef, { cart: newList });
+    return console.log('success')
+  } catch (error) {
+    return console.log('error')
+  }
   //return data;
 };
 

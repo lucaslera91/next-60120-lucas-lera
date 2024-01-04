@@ -18,10 +18,18 @@ export const AuthProvider = ({ children }) => {
   //     isAdmin: false,
   //     user,
   //   });
+  const getCookieHandler = (cookie) => {
+    try {
+      return getCookie(cookie);
+    } catch (error) {
+      return "";
+    }
+  };
 
   const [user, setUser] = useState({
     isAdmin: false,
     isLoggedIn: false,
+    uid: getCookieHandler("libreriaAppCookie"),
   });
   const router = useRouter();
 
@@ -32,6 +40,11 @@ export const AuthProvider = ({ children }) => {
         console.log("its being successfull.. ");
 
         setCookie("libreriaAppCookie", userCredential.user.uid, 1);
+        setUser({
+          isAdmin: false,
+          isLoggedIn: true,
+          uid: userCredential.user.uid,
+        });
         //set cookie
         return userCredential.user;
         // ...
@@ -61,13 +74,14 @@ export const AuthProvider = ({ children }) => {
         // An error happened.
       });
   };
+  
   const registerUser = async (email, password) => {
-    console.log('regeister')
+    console.log("regeister");
     return await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user.uid;
-        console.log(user)
+        console.log(user);
         return { status: 200, id: user };
         // ...
       })
@@ -86,7 +100,8 @@ export const AuthProvider = ({ children }) => {
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
         console.log("user uid", uid);
-        return uid;
+        setUser({ ...user, uid: uid });
+        return true;
         // ...
       } else {
         console.log("user signed out");

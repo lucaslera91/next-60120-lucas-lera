@@ -1,29 +1,55 @@
+"use client";
+import { useOrdersContext } from "@/Contexts/OrdersProvider";
 import { getOrdersListApi } from "@/service/ordersService";
-import React from "react";
+import React, { useEffect } from "react";
 import OrderItem from "../ui/OrderItem/OrderItem";
 
-const OrderList = async () => {
-  const initialUser = "user-name-random1";
-  const uid = getCookie("libreriaAppCookie");
-  const ordersList = await getOrdersListApi(uid);
+const OrderList = () => {
+  //const initialUser = "user-name-random1";
+  //const uid = getCookie("libreriaAppCookie");
+  const { getOrders, ordersList } = useOrdersContext();
+  //const ordersList = await getOrdersListApi(uid);
+  useEffect(() => {
+    getOrders();
+  }, []);
 
-  return (
-    <div className={`max-w-2xl mx-auto bg-white shadow-md rounded my-8`}>
-      <table className="min-w-full">
-        <thead>
-          <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-            <th className="py-3 px-6 text-left">Total</th>
-            <th className="py-3 px-6 text-left">Id</th>
-            <th className="py-3 px-6 text-left"> Status</th>
-            <th className="py-3 px-6 text-left">Items</th>
-          </tr>
-        </thead>
-        <tbody className="text-gray-600 text-sm font-light">
-          {!!ordersList &&
-            ordersList?.map((element) => <OrderItem order={element} />)}
-        </tbody>
-      </table>
-    </div>
+  // return ordersList.length < 1 ? (
+  //   <tr className="text-gray-600 text-sm font-light">Crea to primera orden</tr>
+  // ) : (
+  //   ordersList?.map((element, idx) => (
+  //     <tr className="text-gray-600 text-sm font-light">
+  //       <OrderItem key={idx} order={element} />
+  //     </tr>
+  //   ))
+  // );
+  return ordersList.length < 1 ? (
+    <tr>
+      <td colSpan="2" className="py-2 px-4">
+        <div className="bg-white p-4 rounded">
+          <p className="text-gray-500">Crea tu primera orden.</p>
+        </div>
+      </td>
+    </tr>
+  ) : (
+    ordersList.map((element, idx) => {
+      const { total, status, id, items } = element;
+      return (
+        <tr idx={idx}>
+          <td colSpan="2" className="py-3 text-left px-6">
+            <p>${total}</p>
+          </td>
+          <td colSpan="2" className="py-3 text-left px-6">
+            <p className="text-gray-500">{id}</p>
+          </td>
+          <td colSpan="2" className="py-3 text-left px-6">
+            <p className="text-gray-500">{status}</p>
+          </td>
+          <td colSpan="2" className="py-3 text-left px-6">
+            <p className="text-gray-500">{items}</p>
+          </td>
+        </tr>
+      );
+    })
   );
 };
 

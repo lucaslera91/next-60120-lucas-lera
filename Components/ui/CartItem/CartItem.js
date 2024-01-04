@@ -25,7 +25,7 @@ const CartItem = ({ item, revalidate }) => {
         <h4 className={H4_CLEAR}>{item.amount}</h4>
         <QuantitySelector item={item} />
       </div>
-      <DeleteButton user={initialUser} item={item} />
+      <DeleteButton item={item} />
     </div>
   );
 };
