@@ -3,6 +3,7 @@ import { useOrdersContext } from "@/Contexts/OrdersProvider";
 import { getOrdersListApi } from "@/service/ordersService";
 import React, { useEffect } from "react";
 import OrderItem from "../ui/OrderItem/OrderItem";
+import Spinner from "../ui/Spinner/Spinner";
 
 const OrderList = () => {
   //const initialUser = "user-name-random1";
@@ -10,19 +11,19 @@ const OrderList = () => {
   const { getOrders, ordersList } = useOrdersContext();
   //const ordersList = await getOrdersListApi(uid);
   useEffect(() => {
+    console.log("get orders");
     getOrders();
   }, []);
 
-  // return ordersList.length < 1 ? (
-  //   <tr className="text-gray-600 text-sm font-light">Crea to primera orden</tr>
-  // ) : (
-  //   ordersList?.map((element, idx) => (
-  //     <tr className="text-gray-600 text-sm font-light">
-  //       <OrderItem key={idx} order={element} />
-  //     </tr>
-  //   ))
-  // );
-  return ordersList.length < 1 ? (
+  return !ordersList[0] ? (
+    <tr>
+      <td colSpan="2" className="py-2 px-4">
+        <div className="bg-white p-4 rounded">
+          <Spinner />
+        </div>
+      </td>
+    </tr>
+  ) : ordersList.length < 1 ? (
     <tr>
       <td colSpan="2" className="py-2 px-4">
         <div className="bg-white p-4 rounded">
@@ -34,7 +35,7 @@ const OrderList = () => {
     ordersList.map((element, idx) => {
       const { total, status, id, items } = element;
       return (
-        <tr idx={idx}>
+        <tr key={idx}>
           <td colSpan="2" className="py-3 text-left px-6">
             <p>${total}</p>
           </td>

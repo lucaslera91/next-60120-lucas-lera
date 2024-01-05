@@ -1,9 +1,11 @@
 "use client";
 import { hasFalsyAttributes, generateId } from "@/app/utils/utils";
+import { useAdminContext } from "@/Contexts/AdminProvider";
 //import { generateBuildId } from "@/next.config";
 import React, { useState } from "react";
 
 const AddAdminItem = ({ children, handleShowAddProduct }) => {
+  const { addItem } = useAdminContext();
   const [isError, setIsError] = useState(false);
   const errorMessage = "Debes completar todos los campos";
   const initialProductState = {
@@ -22,10 +24,12 @@ const AddAdminItem = ({ children, handleShowAddProduct }) => {
     setProductData({ ...productData, [e.target.id]: e.target.value });
     //console.log(productData);
   };
-  const addProductHandler = () => {
+  const addProductHandler = async () => {
     const newProduct = { ...productData, id: generateId() };
+    console.log('new product', newProduct)
+    await addItem(newProduct);
     setIsError(false);
-    setProductData(initialProductState);
+    handleShowAddProduct()
   };
   const handleSubmit = (e) => {
     e.preventDefault(e);

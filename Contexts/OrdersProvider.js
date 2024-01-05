@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   collection,
   doc,
@@ -17,11 +17,16 @@ const OrderContext = createContext();
 
 export const OrdersProvider = ({ children }) => {
   const { user } = useAuthContext();
+  useEffect(() => {
+    console.log("user", user);
+  }, []);
 
-  const [ordersList, setOrdersList] = useState([]);
+
+  const [ordersList, setOrdersList] = useState([false]);
 
   const getOrders = async () => {
-    console.log('order id', user?.uid)
+    console.log(user)
+    console.log("order id", user?.uid);
     const colRef = collection(db, "users");
     const docRef = doc(colRef, user?.uid);
     const data = await getDoc(docRef).then((doc) => doc.data());

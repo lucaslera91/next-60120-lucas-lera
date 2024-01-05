@@ -1,6 +1,7 @@
 "use client";
 import React, { createContext, useContext, useState } from "react";
 import {
+  addDoc,
   collection,
   deleteDoc,
   doc,
@@ -43,10 +44,19 @@ export const AdminProvider = ({ children }) => {
       });
   };
   const addItem = async (item) => {
+    console.log("addd item", item);
     try {
-      console.log("first");
+      const colRef = collection(db, "lista-productos-admin");
+      console.log(colRef);
+      await addDoc(colRef, item);
+      console.log("adminlist", adminList);
+      //console.log(doc(db, "lista-productos-admin", item.itemId))
+      //await setDoc(doc(db, "lista-productos-admin", item.itemId), item);
+
+      setAdminList([...adminList, item]);
+      console.log("success");
     } catch (error) {
-      console.log(error);
+      console.log("error");
     }
   };
   ///

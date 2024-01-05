@@ -7,7 +7,7 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { deleteCookie, getCookie, setCookie } from "@/app/utils/utils";
 
@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
   //     isAdmin: false,
   //     user,
   //   });
+
   const getCookieHandler = (cookie) => {
     try {
       return getCookie(cookie);
@@ -31,6 +32,9 @@ export const AuthProvider = ({ children }) => {
     isLoggedIn: false,
     uid: getCookieHandler("libreriaAppCookie"),
   });
+  useEffect(() => {
+    console.log("user auth prov", user);
+  }, [user]);
   const router = useRouter();
 
   const logIn = async (email, password) => {
@@ -74,7 +78,7 @@ export const AuthProvider = ({ children }) => {
         // An error happened.
       });
   };
-  
+
   const registerUser = async (email, password) => {
     console.log("regeister");
     return await createUserWithEmailAndPassword(auth, email, password)
@@ -100,7 +104,6 @@ export const AuthProvider = ({ children }) => {
         // https://firebase.google.com/docs/reference/js/auth.user
         const uid = user.uid;
         console.log("user uid", uid);
-        setUser({ ...user, uid: uid });
         return true;
         // ...
       } else {

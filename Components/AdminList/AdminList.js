@@ -6,12 +6,18 @@ import {} from "@/Contexts/ProductListAdminProvider";
 import { useAdminContext } from "@/Contexts/AdminProvider";
 import { getAdminListApi } from "@/service/authServices";
 import Spinner from "../ui/Spinner/Spinner";
+import { Glegoo } from "next/font/google";
 
 const AdminList = () => {
   const { adminList, getAdminList } = useAdminContext();
   useEffect(() => {
     getAdminList();
   }, []);
+
+
+  useEffect(() => {
+    console.log('list in admin', adminList )
+  }, [adminList]);
 
   return (
     <div>
