@@ -10,7 +10,7 @@ import { createDocument } from "@/app/utils/utils";
 const Form = ({ type }) => {
   const error = "error msg";
   const router = useRouter();
-  const { registerUser, logIn, setUser } = useAuthContext() || {};
+  const { registerUser, logIn, user, setUser } = useAuthContext() || {};
 
   // const [error, setError] = useState()
   const [formData, setFormData] = useState({
@@ -23,11 +23,11 @@ const Form = ({ type }) => {
   };
 
   const handleLogIn = (res) => {
-    console.log('register res', res.id)
-    createDocument(res.id)
+    console.log("register res", res.id);
+    createDocument(res.id);
   };
   const handleSubmit = async (e) => {
-    console.log('heck this doesnt work')
+    console.log("heck this doesnt work");
     e.preventDefault();
     if (type === "Register") {
       registerUser(formData.email, formData.password)
@@ -62,7 +62,11 @@ const Form = ({ type }) => {
         //check if admin
         const isAdmin = await getAdminListService(isLogIn?.uid);
         console.log(isAdmin?.role ? true : false);
-        setUser({ isAdmin: isAdmin?.role ? true : false, isLoggedIn: true });
+        // setUser({
+        //   ...user,
+        //   isAdmin: isAdmin?.role ? true : false,
+        //   isLoggedIn: true,
+        // });
         //here i should set cookie if necesaryy
         router.push("/");
       }
