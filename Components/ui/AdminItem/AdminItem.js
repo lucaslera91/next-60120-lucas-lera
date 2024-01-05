@@ -4,9 +4,6 @@ import React, { useState, useEffect } from "react";
 
 const AdminItem = ({ children, item }) => {
   const { title, description, imageUrl, id, price, stock } = item || {};
-  console.log(title, description, imageUrl, id, price, stock);
-  const imageSrc =
-    "https://hips.hearstapps.com/hmg-prod/images/office-and-school-supplies-arranged-on-wooden-table-royalty-free-image-1687558904.jpg?crop=1xw:0.84415xh;center,top&resize=1200:*";
 
   const { deleteItem, editItem } = useAdminContext();
   const [isEditMode, setEditMode] = useState(false);
@@ -27,6 +24,7 @@ const AdminItem = ({ children, item }) => {
     stock,
   });
   const handleDeleteItem = () => {
+    console.log(id)
     deleteItem(id);
   };
   const handleEditItem = async (e) => {

@@ -47,8 +47,9 @@ export const AdminProvider = ({ children }) => {
     console.log("addd item", item);
     try {
       const colRef = collection(db, "lista-productos-admin");
+      const docRef = doc(colRef, item.id);
       console.log(colRef);
-      await addDoc(colRef, item);
+      await setDoc(docRef, item);
       console.log("adminlist", adminList);
       //console.log(doc(db, "lista-productos-admin", item.itemId))
       //await setDoc(doc(db, "lista-productos-admin", item.itemId), item);
@@ -64,8 +65,13 @@ export const AdminProvider = ({ children }) => {
   //obtener listado
 
   const deleteItem = async (itemId) => {
+    console.log(itemId);
     try {
-      await deleteDoc(doc(db, "lista-productos-admin", itemId));
+      const colRef = collection(db, "lista-productos-admin");
+      const docRef = doc(colRef, itemId);
+     // const docRef = doc(db, "lista-productos-admin", itemId);
+      console.log(colRef);
+      await deleteDoc(docRef);
       const newList = adminList.filter((item) => item.id !== itemId);
       setAdminList(newList);
     } catch (error) {
