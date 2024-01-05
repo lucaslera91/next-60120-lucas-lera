@@ -17,16 +17,6 @@ const ConfirmButton = ({ order }) => {
   return (
     <>
       <button onClick={handleConfirmOrder}>Confirmar</button>
-      {/* <button
-        onClick={() =>
-          startTransition(() => {
-            revalidate();
-          })
-        }
-      >
-        Test action
-      </button> */}
-      ;
     </>
   );
 };

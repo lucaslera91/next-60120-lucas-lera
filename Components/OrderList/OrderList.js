@@ -1,4 +1,5 @@
 "use client";
+import { useAuthContext } from "@/Contexts/AuthProvider";
 import { useOrdersContext } from "@/Contexts/OrdersProvider";
 import { getOrdersListApi } from "@/service/ordersService";
 import React, { useEffect } from "react";
@@ -6,13 +7,12 @@ import OrderItem from "../ui/OrderItem/OrderItem";
 import Spinner from "../ui/Spinner/Spinner";
 
 const OrderList = () => {
-  //const initialUser = "user-name-random1";
-  //const uid = getCookie("libreriaAppCookie");
   const { getOrders, ordersList } = useOrdersContext();
-  //const ordersList = await getOrdersListApi(uid);
+  const { authCheck } = useAuthContext();
+
   useEffect(() => {
-    console.log("get orders");
     getOrders();
+    authCheck();
   }, []);
 
   return !ordersList[0] ? (

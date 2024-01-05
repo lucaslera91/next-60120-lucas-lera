@@ -11,36 +11,25 @@ import CartItem from "../ui/CartItem/CartItem";
 import styles from "./CartList.module.css";
 
 const CartList = () => {
-  //const initialUser = "user-name-random1";
-  //const cartList = await getCartListApi();
   const { cartList, getCart } = useCartContext();
+  const { authCheck } = useAuthContext();
   const [total, setTotal] = useState(0);
 
   const handleTotal = (list) => {
-    console.log("list", list);
     const total = list?.reduce((accumulator, currentObject) => {
-      console.log("ac", currentObject.price);
-      console.log(accumulator);
-      console.log("sum", currentObject.price + accumulator);
       return accumulator + currentObject.price * currentObject.amount;
     }, 0);
-    console.log(total);
     return total;
   };
 
   useEffect(() => {
     getCart();
-    console.log("cart", cartList);
+    authCheck();
   }, []);
   useEffect(() => {
     const aux = handleTotal(cartList);
     setTotal(handleTotal(cartList));
-    console.log("total", aux);
   }, [cartList]);
-
-  // const total = cartList?.reduce((accumulator, currentObject) => {
-  //   return accumulator + currentObject.price * currentObject.amount;
-  // }, 0);
 
   const order = {
     total: total,
@@ -79,26 +68,6 @@ const CartList = () => {
       </div>
     </div>
   );
-
-  // return (
-  //   <div className={styles.cartContainer}>
-  //     <h2 className={H2_CLEAR}>Confirma tu carrito!</h2>
-  //     <div className={styles.titleContainer}>
-  //       <h2 className={H3_DARK}>Total: $ {total}</h2>
-  //       <p className={H4_CLEAR}>Items: {cartList?.length}</p>
-  //       <ConfirmButton
-  //         order={order}
-  //         initialUser={initialUser}
-  //         className={`${styles.confirmPurchase} rounded`}
-  //       />
-  //     </div>
-
-  //     <div className={styles.cartListContainer}>
-  //       {!cartList && <div>Loading...</div>}
-  //       {!!cartList && cartList.map((element) => <CartItem item={element} />)}
-  //     </div>
-  //   </div>
-  //);
 };
 
 export default CartList;

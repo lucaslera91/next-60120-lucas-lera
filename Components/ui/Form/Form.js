@@ -62,7 +62,7 @@ const Form = ({ type }) => {
         //check if admin
         const isAdmin = await getAdminListService(isLogIn?.uid);
         console.log(isAdmin?.role ? true : false);
-        // setUser({
+        setUser({ ...user, isAdmin: isAdmin?.role ? true : false });
         //   ...user,
         //   isAdmin: isAdmin?.role ? true : false,
         //   isLoggedIn: true,
