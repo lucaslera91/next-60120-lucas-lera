@@ -12,7 +12,7 @@ import styles from "./CartList.module.css";
 
 const CartList = () => {
   const { cartList, getCart } = useCartContext();
-  const { authCheck } = useAuthContext();
+  const { authCheck, user } = useAuthContext();
   const [total, setTotal] = useState(0);
 
   const handleTotal = (list) => {
@@ -23,9 +23,13 @@ const CartList = () => {
   };
 
   useEffect(() => {
-    getCart();
     authCheck();
   }, []);
+
+  useEffect(() => {
+    user?.uid && getCart();
+  }, [user]);
+
   useEffect(() => {
     const aux = handleTotal(cartList);
     setTotal(handleTotal(cartList));

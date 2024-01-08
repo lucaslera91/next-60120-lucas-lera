@@ -6,15 +6,6 @@ import { authCheckServerSide } from "@/app/utils/utils";
 //GET CART
 
 //Firebase service
-export const getCartListservice = async () => {
-  const colRef = collection(db, "users");
-
-  //can i use auth here?
-  //const id = authCheckServerSide();
-  //console.log('this is sent at lease', authCheckServerSide)
-  //const docRef = doc(colRef, id);
-  return await getDoc(docRef).then((doc) => doc.data());
-};
 
 //Api service
 
@@ -27,11 +18,6 @@ export const getCartListApi = async (initialuser) => {
   )
     .then((res) => res.json())
     .catch((error) =>
-      // Swal.fire({
-      //   icon: "error",
-      //   title: "Oops...",
-      //   text: "Error en la pagina, por favor intenta luego",
-      // })
       console.log(error)
     );
   return data;
@@ -43,7 +29,6 @@ export const addCartItemService = async (id, item) => {
   const colRef = collection(db, "users");
   const docRef = doc(colRef, id);
   const data = await getCartListservice(id);
-  console.log("data add item", data);
   const newList = data.cart;
   const indexOfItem = newList.findIndex((element) => element.id === item.id);
   if (indexOfItem !== -1) {
@@ -110,7 +95,7 @@ export const updateCartItemService = async (id, item) => {
   const colRef = collection(db, "users");
   const docRef = doc(colRef, id);
   const data = await getCartListservice(id);
-  //console.log(data.cart);
+
   let newList = data.cart;
   const indexOfItem = newList.findIndex((element) => element.id === item.id);
   newList[indexOfItem].amount = item.amount;
@@ -131,23 +116,21 @@ export const updateCartItemApi = async (initialUser, item) => {
   )
     .then((res) => console.log("not here", res))
     .catch((error) => console.log(error));
-  //return data;
 };
 
 export const deleteCartItemService = async (id, itemId) => {
   const colRef = collection(db, "users");
   const docRef = doc(colRef, id);
   const data = await getCartListservice(id);
-  //console.log(data.cart);
+
   const newList = data.cart.filter((element) => element.id !== itemId);
-  //console.log(newList);
+
   try {
     await updateDoc(docRef, { cart: newList });
-    return console.log('success')
+    return console.log("success");
   } catch (error) {
-    return console.log('error')
+    return console.log("error");
   }
-  //return data;
 };
 
 export const deleteCartItemApi = async (user, item) => {

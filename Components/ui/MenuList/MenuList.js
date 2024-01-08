@@ -1,14 +1,14 @@
 "use client";
-import ProtectedAdmin from "@/Components/ProtectedRoute/ProtectedAdmin";
 import { useAuthContext } from "@/Contexts/AuthProvider";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import LogInButton from "../Button/LogInButton";
 import LogOutButton from "../Button/LogOutButton";
 
 const MenuList = ({ data }) => {
   const { user } = useAuthContext();
-  
+
   return (
     <div>
       <div className="flex-container flex items-center justify-between p-4 bg-blue-500">
@@ -38,14 +38,12 @@ const MenuList = ({ data }) => {
                 </Link>
               )
           )}
-          {/* <ProtectedAdmin> */}
           {user?.isAdmin && (
             <Link href={"/Admin"}>
               <div className="text-white hover:text-gray-300">Admin</div>
             </Link>
           )}
-          {/* </ProtectedAdmin> */}
-          <LogOutButton />
+          {user?.uid ? <LogOutButton /> : <LogInButton />}
         </div>
       </div>
     </div>

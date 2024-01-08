@@ -1,5 +1,4 @@
 import AddProductButton from "@/Components/AdminList/AddProductButton";
-import ProtectedAdmin from "@/Components/ProtectedRoute/ProtectedAdmin";
 import AddAdminItem from "@/Components/ui/AdminItem/AdminAddItem";
 import React from "react";
 import AdminList from "../../Components/AdminList/AdminList";

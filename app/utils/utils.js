@@ -1,5 +1,7 @@
 import { auth, db } from "@/service/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
+import Swal from "sweetalert2";
+
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
 export const findItem = (list, find) =>
@@ -65,38 +67,34 @@ export const createDocument = async (docId) => {
   try {
     // Add a new document to the collection
     const newDocRef = doc(myCollection, docId);
-    await setDoc(
-      newDocRef,
-      {
-        cart: [],
-        orders: [],
-      },
-    );
-
-    console.log("Document added with ID:", newDocRef.id);
+    await setDoc(newDocRef, {
+      cart: [],
+      orders: [],
+    });
     return { status: 200 };
   } catch (error) {
-    console.error("Error adding document:", error.message);
+    console.log(error);
   }
 };
 
-export const authCheckServerSide = async () => {
-  console.log('checking')
-  console.log('authhhhhhhhhh', auth)
-  return onAuthStateChanged(auth, (user) => {
-    if (user) {
-      console.log("signed in", user);
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user.uid;
-      console.log("user uid", uid);
-      return uid;
-      // ...
-    } else {
-      console.log("user signed out");
-      return false
-      // User is signed out
-      // ...
-    }
+export const successToast = () => {
+  Swal.fire({
+    title: "Exito!",
+    text: "Se completo correctamente",
+    icon: "success",
+    timer: 1200,
+    toast: true,
+    position: "top-end",
+  });
+};
+
+export const errorToast = () => {
+  Swal.fire({
+    title: "Error",
+    text: "Ocurrio un error, intente nuevamente",
+    icon: "error",
+    timer: 1200,
+    toast: true,
+    position: "top-end",
   });
 };

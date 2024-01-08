@@ -12,17 +12,15 @@ const AdminList = () => {
   const { adminList, getAdminList } = useAdminContext();
   const { authCheck, user } = useAuthContext();
   const router = useRouter();
-  useEffect(() => {
-    getAdminList();
-    authCheck();
-  }, []);
-  useEffect(() => {
-    !user?.isAdmin && router.push('/')
-  }, [user]);
 
   useEffect(() => {
-    console.log("list in admin", adminList);
-  }, [adminList]);
+    authCheck();
+  }, []);
+
+  useEffect(() => {
+    user?.uid && !user?.isAdmin && router.push("/");
+    user?.uid && getAdminList();
+  }, [user]);
 
   return (
     <div>

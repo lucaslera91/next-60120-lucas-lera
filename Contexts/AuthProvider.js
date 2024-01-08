@@ -14,11 +14,6 @@ import { deleteCookie, getCookie, setCookie } from "@/app/utils/utils";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  //   const [user, setUser] = useState({
-  //     isAdmin: false,
-  //     user,
-  //   });
-
   const getCookieHandler = (cookie) => {
     try {
       return getCookie(cookie);
@@ -32,17 +27,12 @@ export const AuthProvider = ({ children }) => {
     isLoggedIn: false,
     uid: getCookieHandler("libreriaAppCookie"),
   });
-  useEffect(() => {
-    console.log("user auth prov", user);
-  }, [user]);
+
   const router = useRouter();
 
   const logIn = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
-        console.log("its being successfull.. ");
-
         setCookie("libreriaAppCookie", userCredential.user.uid, 1);
         setUser({
           isAdmin: false,
@@ -68,7 +58,6 @@ export const AuthProvider = ({ children }) => {
   const logOut = async () => {
     return signOut(auth)
       .then((res) => {
-        console.log("sign out succesfull", res);
         deleteCookie("libreriaAppCookie");
         router.push("/LogIn");
         // Sign-out successful.
@@ -80,7 +69,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const registerUser = async (email, password) => {
-    console.log("regeister");
     return await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed up
@@ -97,14 +85,13 @@ export const AuthProvider = ({ children }) => {
       });
   };
   const authCheck = async () => {
-    return onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("signed in", user);
+    return onAuthStateChanged(auth, (userData) => {
+      if (userData) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
-        const uid = user.uid;
-        console.log("user uid", uid);
-        return true;
+        const uid = userData.uid;
+        setUser({ ...user, isLoggedIn: true, uid: userData.uid });
+
         // ...
       } else {
         console.log("user signed out");
@@ -114,6 +101,10 @@ export const AuthProvider = ({ children }) => {
       }
     });
   };
+
+  useEffect(() => {
+    authCheck();
+  }, []);
 
   return (
     <AuthContext.Provider

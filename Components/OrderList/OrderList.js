@@ -8,12 +8,15 @@ import Spinner from "../ui/Spinner/Spinner";
 
 const OrderList = () => {
   const { getOrders, ordersList } = useOrdersContext();
-  const { authCheck } = useAuthContext();
+  const { authCheck, user} = useAuthContext();
 
   useEffect(() => {
-    getOrders();
     authCheck();
   }, []);
+
+  useEffect(() => {
+    user?.uid && getOrders();
+  }, [user]);
 
   return !ordersList[0] ? (
     <tr>

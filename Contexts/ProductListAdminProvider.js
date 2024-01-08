@@ -12,8 +12,6 @@ export const ProductListAdminProvider = ({ children }) => {
       const data = snapshot.docs.map(
         (doc) => (doc = { id: doc.id, ...doc.data() })
       );
-      //console.log(data);
-      //const result = data.find((item) => item.id === id);
       return data;
     });
   };

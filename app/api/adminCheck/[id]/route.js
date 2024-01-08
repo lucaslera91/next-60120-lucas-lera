@@ -9,7 +9,6 @@ import { getAdminListApi, getAdminListService } from "@/service/authServices";
 
 export const GET = async (_, { params }) => {
     const { id } = params;
-    console.log('route', id)
     try {
       const data = await getAdminListService(id);
       return NextResponse.json(data);

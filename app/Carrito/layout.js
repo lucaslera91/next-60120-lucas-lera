@@ -14,24 +14,15 @@ import { headerData } from "../utils/headerUtils";
 // };
 
 const CarritoLayout = ({ children, login }) => {
-  //console.log('cookie', user)
-  //const { authCheck } = useAuthContext();
-  const isLoggedIn = true;
-  console.log("is log in", isLoggedIn);
-
   return (
     <>
-      {isLoggedIn ? (
+      <div className="p-2">
+        <Header data={headerData} />
         <div className="p-2">
-          <Header data={headerData} />
-          <div className="p-2">
-            {children}
-            <Footer data={footerList} />
-          </div>
+          {children}
+          <Footer data={footerList} />
         </div>
-      ) : (
-        login
-      )}
+      </div>
     </>
   );
 };

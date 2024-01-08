@@ -16,9 +16,7 @@ import { useAuthContext } from "./AuthProvider";
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const initialUser = "user-name-random1";
-  const { user } = useAuthContext();
-
+  const { user, authCheck } = useAuthContext();
   const [cartList, setCartList] = useState([]);
 
   const getCart = async () => {
@@ -29,17 +27,10 @@ export const CartProvider = ({ children }) => {
     return data;
   };
   const addToCartItem = async (item) => {
-    //agregar item a lista
-    // const getCartList = await getCartListApi(initialUser);
-    // let docRef = db.collection("users").doc(initialUser);
-    // await updateDoc(docRef, { cart: [...cartList] });
-    console.log("item", item);
     const colRef = collection(db, "users");
     const docRef = doc(colRef, user?.uid);
     const data = await getCart();
-    console.log("data add item", data);
     const newList = data.cart;
-    console.log("new", newList);
     const indexOfItem = newList.findIndex((element) => element.id === item.id);
     if (indexOfItem !== -1) {
       const newSum =
@@ -48,7 +39,7 @@ export const CartProvider = ({ children }) => {
     } else {
       newList.push(item);
     }
-    console.log("doc ref", newList);
+
     return await updateDoc(docRef, { cart: newList });
   };
   ///
@@ -56,18 +47,13 @@ export const CartProvider = ({ children }) => {
   //obtener listado
 
   const deleteCartItem = async (itemId) => {
-    //delete item
-    //await updateDoc(docsRef, { [listName]: [] });
-    console.log("item id", user?.uid);
     const colRef = collection(db, "users");
-    console.log("col ref", colRef);
+
     const docRef = doc(colRef, user?.uid);
     const data = await getCart();
-    console.log("list", data);
-    console.log("docref", docRef);
-    //console.log(data.cart);
+
     const newList = data.cart.filter((element) => element.id !== itemId);
-    //console.log(newList);
+
     try {
       await updateDoc(docRef, { cart: newList });
       setCartList(newList);
@@ -81,7 +67,6 @@ export const CartProvider = ({ children }) => {
     const colRef = collection(db, "users");
     const docRef = doc(colRef, user?.uid);
     const data = await getCart();
-    //console.log(data.cart);
     let newList = data.cart;
     const indexOfItem = newList.findIndex((element) => element.id === item.id);
     newList[indexOfItem].amount = item.amount;
@@ -96,7 +81,6 @@ export const CartProvider = ({ children }) => {
   const clearCart = async () => {
     const colRef = collection(db, "users");
     const docRef = doc(colRef, user?.uid);
-    //console.log(data.cart);
     try {
       await updateDoc(docRef, { cart: [] });
       setCartList([]);

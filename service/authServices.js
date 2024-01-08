@@ -17,17 +17,11 @@ export const getAdminListService = async (id) => {
 //Api service
 
 export const getAdminListApi = async (user) => {
-  console.log("api", user);
   return await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/auth/${user}`, {
     next: { tags: ["isAdmin"] },
   })
     .then((res) => res.json())
     .catch((error) =>
-      // Swal.fire({
-      //   icon: "error",
-      //   title: "Oops...",
-      //   text: "Error en la pagina, por favor intenta luego",
-      // })
       console.log(error)
     );
 };

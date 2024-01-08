@@ -7,26 +7,18 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
-import { auth, db } from "../service/firebaseConfig";
-import CartItem from "@/Components/ui/CartItem/CartItem";
-import { useRouter } from "next/navigation";
+import { db } from "../service/firebaseConfig";
+
 import { useAuthContext } from "./AuthProvider";
-import { useCartContext } from "./CartProvider";
 
 const OrderContext = createContext();
 
 export const OrdersProvider = ({ children }) => {
   const { user } = useAuthContext();
-  useEffect(() => {
-    console.log("user", user);
-  }, []);
-
 
   const [ordersList, setOrdersList] = useState([false]);
 
   const getOrders = async () => {
-    console.log(user)
-    console.log("order id", user?.uid);
     const colRef = collection(db, "users");
     const docRef = doc(colRef, user?.uid);
     const data = await getDoc(docRef).then((doc) => doc.data());
