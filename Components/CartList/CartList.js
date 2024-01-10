@@ -40,6 +40,7 @@ const CartList = () => {
     id: generateId(),
     status: "En preparacio",
     items: cartList?.length,
+    fullList: cartList,
   };
 
   const noDataCart = (
@@ -50,6 +51,7 @@ const CartList = () => {
       </p>
     </div>
   );
+  console.log(order)
 
   return cartList?.length < 1 ? (
     noDataCart

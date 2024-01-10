@@ -25,19 +25,18 @@ const QuantitySelector = ({ item }) => {
   const handleSelectChange = async (event) => {
     const targetValue = event.target.value;
     if (targetValue === SIX_OR_MORE) {
-      // const { value } = await Swal.fire({
-      //   title: "Cuantas unidades queres?",
-      //   icon: "question",
-      //   input: "range",
-      //   inputLabel: "Unidades",
-      //   inputAttributes: {
-      //     min: "0",
-      //     max: item.stock,
-      //     step: "1",
-      //   },
-      //   inputValue: item.amount,
-      // });
-      const value = 3;
+      const { value } = await Swal.fire({
+        title: "Cuantas unidades queres?",
+        icon: "question",
+        input: "range",
+        inputLabel: "Unidades",
+        inputAttributes: {
+          min: "0",
+          max: item.stock,
+          step: "1",
+        },
+        inputValue: item.amount,
+      });
       setNewItem({ ...item, amount: value });
     } else {
       setNewItem({ ...item, amount: targetValue });
@@ -58,11 +57,6 @@ const QuantitySelector = ({ item }) => {
               toast: true,
               position: "top-end",
             });
-            //router.refresh();
-            // startTransition(() => {
-            //   //revalidate('orders');
-            //   revalidate("cartList");
-            // });
           })
           .catch((error) => console.log(error));
       };

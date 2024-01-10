@@ -2,12 +2,13 @@
 import { useAuthContext } from "@/Contexts/AuthProvider";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import LogInButton from "../Button/LogInButton";
 import LogOutButton from "../Button/LogOutButton";
+import UserImage from "../UserImage/UserImage";
 
 const MenuList = ({ data }) => {
-  const { user } = useAuthContext();
+  const { user, authCheck } = useAuthContext();
 
   return (
     <div>
@@ -28,6 +29,7 @@ const MenuList = ({ data }) => {
 
         {/* Navigation Links */}
         <div className="flex items-center space-x-4">
+          <UserImage id={user.uid} />
           {data.map(
             (item, idx) =>
               item.name !== "Admin" && (
