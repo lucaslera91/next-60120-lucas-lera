@@ -1,11 +1,12 @@
 "use client";
-import { useAuthContext } from "@/Contexts/AuthProvider";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
+import LogButton from "../Button/LogButton";
 import LogInButton from "../Button/LogInButton";
 import LogOutButton from "../Button/LogOutButton";
 import UserImage from "../UserImage/UserImage";
+import { useAuthContext } from "@/Contexts/AuthProvider";
 
 const MenuList = ({ data }) => {
   const { user, authCheck } = useAuthContext();
@@ -45,7 +46,8 @@ const MenuList = ({ data }) => {
               <div className="text-white hover:text-gray-300">Admin</div>
             </Link>
           )}
-          {user?.uid ? <LogOutButton /> : <LogInButton />}
+          <LogButton type={user?.uid ? "logout" : "login"} />
+          {/* {user?.uid ? <LogOutButton /> : <LogInButton />} */}
         </div>
       </div>
     </div>

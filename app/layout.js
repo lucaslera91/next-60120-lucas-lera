@@ -20,20 +20,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Suspense fallback={<Loading />}>
-          <AuthProvider>
-            <OrdersProvider>
-              <CartProvider>
-                <AdminProvider>
-                  <ProductListAdminProvider>
-                    {/* <ProtectedRoute /> */}
-                    {children}
-                  </ProductListAdminProvider>
-                </AdminProvider>
-              </CartProvider>
-            </OrdersProvider>
-          </AuthProvider>
-        </Suspense>
+        <AuthProvider>
+          <OrdersProvider>
+            <CartProvider>
+              <AdminProvider>
+                <ProductListAdminProvider>
+                  {/* <ProtectedRoute /> */}
+                  {children}
+                </ProductListAdminProvider>
+              </AdminProvider>
+            </CartProvider>
+          </OrdersProvider>
+        </AuthProvider>
       </body>
     </html>
   );
